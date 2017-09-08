@@ -6,10 +6,12 @@
                 {{ track.track_number }} - {{ track.name }} - {{ Math.floor(track.duration_ms / 1000 / 60) }}'{{ (((track.duration_ms / 1000 / 60) - Math.floor((track.duration_ms / 1000 / 60))) * 60).toFixed(0) }}"
             </li>
         </ul>
+        {{ groupedTracks }}
     </div>
 </template>
 
 <script>
+
 export default {
     name: 'tracklisting',
     props: ['albumId'],
@@ -22,6 +24,14 @@ export default {
             ]
         }
     },
+    computed: {
+        groupedTracks() {
+            var trackNames = this.tracks.map(track => track.name);
+            // grouping will happen here
+            return trackNames;
+        }
+    },
+
     created() {
         // fetch tracks from Spotify API
         console.log('getting stuff for ', this.albumId);
