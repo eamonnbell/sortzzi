@@ -16,7 +16,7 @@
             </div>
 
             <div class="content">
-                Tracklisting goes here
+                <TrackListing v-bind:albumId="item.id"></TrackListing>
             </div>           
         </div>
          <footer class="card-footer">
@@ -28,9 +28,14 @@
 </template>
 
 <script>
+import TrackListing from './TrackListing.vue'
+
 export default {
     name: 'albumcard',
     props: ['item'],
+    components: {
+        TrackListing
+    },
     computed: {
         artistNames(){
             var artistNames = this.item.artists.map(artist => artist.name);
