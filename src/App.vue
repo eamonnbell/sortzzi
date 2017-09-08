@@ -24,7 +24,6 @@ import SpotifyProfile from './components/SpotifyProfile.vue'
 export default {
   name: 'app',
   components: {
-    AlbumCard,
     Hero,
     LoginButton, 
     SearchControl,
