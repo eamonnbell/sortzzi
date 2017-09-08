@@ -6,7 +6,7 @@
         <div class="level-left">
             <div class="level-item">
                 <p class="subtitle is-5">
-                    <strong>420</strong> results
+                    <strong>{{ resultsCount }}</strong> results
                 </p>
             </div>
             <div class="level-item">
@@ -53,7 +53,7 @@
 <script>
 export default {
     name: 'searchcontrol',
-    props: ['query'],
+    props: ['query', 'resultsCount'],
     methods: {
         updateQuery(query){
             this.$emit('input', query);

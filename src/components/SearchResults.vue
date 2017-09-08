@@ -1,9 +1,8 @@
 <template>
 <div>
-    {{ query }}
     <ul>
-        <li v-for="result in results" v-bind:key="result.id">
-            {{ result.name }} -- {{ result.age}}
+        <li v-for="item in items" v-bind:key="item.id">
+            {{ item.id }} -- {{ item.name }} -- by {{ item.artists.toString() }} 
         </li>
     </ul>
 </div>
@@ -14,18 +13,21 @@ export default {
     props: ['query'],
     data() {
         return {
-            results: [
-                {
-                    id: 12,
-                    'name': 'Eamonn',
-                    'age': 42,
-                },
-                {
-                    id: 13,
-                    'name': 'Bell',
-                    'age': 24,
-                }
-            ]
+            items: []
+        }
+    },
+    methods: {
+        executeQuery: function(){
+            var prom = this.$spotify.searchTracks(this.query, {limit: 5})
+                .then(data => {
+                    this.items = data.tracks.items;
+                    this.$emit('newResultsCount', this.items.length)
+                }, err => console.log(err))
+        }
+    },
+    watch: {
+        query() {
+            this.executeQuery();
         }
     }
 }

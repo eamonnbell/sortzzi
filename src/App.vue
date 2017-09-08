@@ -5,8 +5,8 @@
 
     <template v-if="loggedIn">
       <SpotifyProfile></SpotifyProfile>
-      <SearchControl v-model="query"></SearchControl>
-      <SearchResults v-bind:query="query"></SearchResults>
+      <SearchControl v-bind:resultsCount="resultsCount" v-model="query"></SearchControl>
+      <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query"></SearchResults>
     </template>
 
     <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-bind:loggedIn="loggedIn"></LoginButton>
@@ -34,7 +34,8 @@ export default {
     return {
       message: 'welcome',
       loggedIn: false,
-      query: 'Placeholder query',
+      query: '',
+      resultsCount: 0,
     }
   },
   methods: {
@@ -42,6 +43,9 @@ export default {
       this.$store.currentAccessToken = accessToken;
       this.$spotify.setAccessToken(this.$store.currentAccessToken);
       this.loggedIn = true;
+    },
+    updateResultsCount(message) {
+      this.resultsCount = Number(message);
     }
   }
 }
