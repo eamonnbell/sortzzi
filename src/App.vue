@@ -15,7 +15,6 @@
 
 <script>
 
-import AlbumCard from './components/AlbumCard.vue'
 import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
 import SearchControl from './components/SearchControl.vue'
