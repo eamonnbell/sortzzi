@@ -32,7 +32,6 @@ export default {
         this.$spotify.getMe()
             .then(data => {
                 this.me = data;
-                console.log(this.me);
             }, function(error) {
                 console.error(error);
             });

@@ -12,10 +12,15 @@
             <div class="level-item">
                 <div class="field has-addons">
                     <p class="control">
-                        <input class="input" type="text" placeholder="Find music">
+                        <input class="input" type="text"
+                               ref="query"
+                               placeholder="Find music"
+                               v-bind:value="query"
+                               v-on:keyup.enter="updateQuery($event.target.value)">
                     </p>
                     <p class="control">
-                        <button class="button">
+                        <button class="button"
+                                v-on:click="updateQuery($refs.query.value)">
                             Search
                         </button>
                     </p>
@@ -47,7 +52,13 @@
 
 <script>
 export default {
-    name: 'searchcontrol'
+    name: 'searchcontrol',
+    props: ['query'],
+    methods: {
+        updateQuery(query){
+            this.$emit('input', query);
+        }
+    }
 }
 </script>
 
