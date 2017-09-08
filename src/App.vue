@@ -1,27 +1,40 @@
 <template>
   <div id="app">
+    
+    <Hero></Hero>
+
+    <template v-if="loggedIn">
+      <SpotifyProfile></SpotifyProfile>
+      <SearchControl></SearchControl>
+    </template>
+
     <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-bind:loggedIn="loggedIn"></LoginButton>
-    <SpotifyProfile v-if="loggedIn"></SpotifyProfile>
   </div>
 </template>
 
 <script>
+
+import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
+import SearchControl from './components/SearchControl.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
 
 export default {
   name: 'app',
   components: {
-    LoginButton, SpotifyProfile
+    Hero,
+    LoginButton, 
+    SearchControl,
+    SpotifyProfile
   },
-  data () {
+  data() {
     return {
       message: 'welcome',
       loggedIn: false,
     }
   },
   methods: {
-    handleAccessToken (accessToken) {
+    handleAccessToken(accessToken) {
       this.$store.currentAccessToken = accessToken;
       this.$spotify.setAccessToken(this.$store.currentAccessToken);
       this.loggedIn = true;
@@ -31,4 +44,5 @@ export default {
 </script>
 
 <style>
+
 </style>
