@@ -31,16 +31,16 @@
         <!-- Right side -->
         <div class="level-right">
             <p class="level-item">
-                <strong>All</strong>
+                <strong>Albums</strong>
             </p>
             <p class="level-item">
-                <a>Composer</a>
+                <a>Tracks</a>
             </p>
             <p class="level-item">
-                <a>Orchestra</a>
+                <a>Works</a>
             </p>
             <p class="level-item">
-                <a>Soloist</a>
+                <a>Performers</a>
             </p>
             <p class="level-item">
                 <a class="button is-success">Clear</a>

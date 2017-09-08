@@ -6,7 +6,7 @@
             Sortzzi
           </h1>
           <h2 class="subtitle">
-            Unfuck classical music on Spotify
+            Fix classical music on Spotify
           </h2>
         </div>
       </div>
