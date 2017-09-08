@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ albumId }}
         <ul>
             <li v-for="track in tracks" v-bind:key="track.id">
                 {{ track.track_number }} - {{ track.name }} - {{ Math.floor(track.duration_ms / 1000 / 60) }}'{{ (((track.duration_ms / 1000 / 60) - Math.floor((track.duration_ms / 1000 / 60))) * 60).toFixed(0) }}"
@@ -11,6 +10,7 @@
 </template>
 
 <script>
+import {groupTracks} from '../utils/tracks.js'
 
 export default {
     name: 'tracklisting',
@@ -27,8 +27,7 @@ export default {
     computed: {
         groupedTracks() {
             var trackNames = this.tracks.map(track => track.name);
-            // grouping will happen here
-            return trackNames;
+            return groupTracks(trackNames);
         }
     },
 
