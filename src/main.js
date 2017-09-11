@@ -8,6 +8,7 @@ Vue.prototype.$store = store;
 var spotify = new SpotifyWebApi();
 Vue.prototype.$spotify = spotify;
 
+
 window.vm = new Vue({
   el: '#app',
   render: h => h(App)

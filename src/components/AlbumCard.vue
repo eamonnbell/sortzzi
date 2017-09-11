@@ -15,29 +15,47 @@
                 </div>
             </div>
 
+            <div class="control">
+            <label class="radio">
+                <input type="radio" value="trackListing" v-model="trackViewType">
+                Tracklist View
+            </label>
+            <label class="radio">
+                <input type="radio" value="trackTree" v-model="trackViewType">
+                TrackTree View
+            </label>
+            </div>
+
             <div class="content">
-                <TrackListing v-bind:albumId="item.id"></TrackListing>
-            </div>           
+                <TrackListing v-if="trackViewType == 'trackListing'" v-bind:albumId="item.id"></TrackListing>
+                <TrackTree v-else-if="trackViewType == 'trackTree'" v-bind:albumId="item.id"></TrackTree>
+            </div>
         </div>
-         <footer class="card-footer">
-                <a class="card-footer-item" :href="item.external_urls.spotify">Play album</a>
-                <a class="card-footer-item">Like</a>
-                <a class="card-footer-item">Hate</a>
-            </footer>
+        <footer class="card-footer">
+            <a class="card-footer-item" :href="item.external_urls.spotify">Play album</a>
+            <a class="card-footer-item">Like</a>
+            <a class="card-footer-item">Hate</a>
+        </footer>
     </div>
 </template>
 
 <script>
 import TrackListing from './TrackListing.vue'
+import TrackTree from './TrackTree.vue'
 
 export default {
     name: 'albumcard',
     props: ['item'],
+    data() {
+        return {
+            trackViewType: 'trackListing'
+        }
+    },
     components: {
-        TrackListing
+        TrackListing, TrackTree
     },
     computed: {
-        artistNames(){
+        artistNames() {
             var artistNames = this.item.artists.map(artist => artist.name);
             return artistNames
         }

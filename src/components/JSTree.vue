@@ -1,0 +1,27 @@
+<template>
+    <div id="js-tree">
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'jstree',
+    props: ['treeData'],
+    watch: {
+        treeData: function(value) {
+            $(this.$el).jstree({
+                'core': {
+                    'data': value
+                }
+            })
+        }
+    },
+    destroyed() {
+        $(this.$el).jstree.destroy();
+    }
+}
+</script>
+
+<style>
+
+</style>
