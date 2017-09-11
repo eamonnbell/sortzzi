@@ -1,45 +1,64 @@
 <template>
     <div>
-        <ul>
+        <!-- <ul>
             <li v-for="track in tracks" v-bind:key="track.id">
                 {{ track.track_number }} - {{ track.name }} - {{ Math.floor(track.duration_ms / 1000 / 60) }}'{{ (((track.duration_ms / 1000 / 60) - Math.floor((track.duration_ms / 1000 / 60))) * 60).toFixed(0) }}"
+
+                {{ track.name }}
             </li>
-        </ul>
-        {{ groupedTracks }}
+        </ul> -->
+
+        <div v-bind:id="'tree-' + albumId">
+        </div>
     </div>
 </template>
 
 <script>
-import {groupTracks} from '../utils/tracks.js'
+import {buildTrieFromTracks} from '../utils/tracks.js'
 
 export default {
     name: 'tracklisting',
     props: ['albumId'],
     data() {
         return {
-            tracks: [
-                'this',
-                'that',
-                'the other'
-            ]
+            tracks: [],
         }
     },
     computed: {
-        groupedTracks() {
+        trackArtists() {
+            var trackArtists = [];
+            this.tracks.forEach((t, i) => {
+                t.artists.forEach(a => {
+                    if(!trackArtists.includes(a.name))
+                        trackArtists.push(a.name)
+                });
+            });
+            return trackArtists;
+        },
+    },
+    methods: {
+        constructJsTree() {
             var trackNames = this.tracks.map(track => track.name);
-            return groupTracks(trackNames);
+            var t = buildTrieFromTracks(trackNames);
+            window.$(`#tree-${this.albumId}`)
+                .jstree({
+                    'core':{
+                        'data': t
+                    }
+                });
         }
     },
-
     created() {
         // fetch tracks from Spotify API
-        console.log('getting stuff for ', this.albumId);
         this.$spotify.getAlbum(this.albumId)
             .then(data => data.tracks.items.map(t => t.id))
             .then(trackIds => this.$spotify.getTracks(trackIds))
-            .then(tracksInfo => this.tracks = tracksInfo.tracks)
+            .then(tracksInfo => {
+                this.tracks = tracksInfo.tracks;
+                this.constructJsTree();
+            })
             .catch(err => console.error(err));
-    }
+    },
 }
 </script>
 
