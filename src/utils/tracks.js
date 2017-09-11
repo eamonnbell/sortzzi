@@ -41,7 +41,7 @@ TrieNode.prototype.countChildren = function () {
 }
 
 function Trie() {
-    this.root = new TrieNode('#');
+    this.root = new TrieNode();
 }
 
 // inserts a word into the trie.
@@ -163,12 +163,10 @@ Trie.prototype.getNodes = function(){
         }
 
         if (n.parent === null) {
-            o.text = n.value;
-            o.parent = '#'; 
-            o.id = n.id;
+            return
         } else {
             o.text = n.value;
-            o.parent = n.parent.id; 
+            o.parent = n.parent == this.root ? '#' : n.parent.id; 
             o.id = n.id;
         }
 
@@ -200,18 +198,12 @@ export function buildTrieFromTracks(tracks) {
 
     // build trie
     tracks.forEach((track, trackIndex) => {
-        var word = track.split(/\s+/);
+        // magic
+        var trackReplaced = track.replace(/(,|no\.|\.|:)/gi, ' ');
+        console.log({track, trackReplaced});
+        var word = trackReplaced.split(/\s+/);
         t.insert(word, trackIndex);
-    })
-
-//    // merge node names
-//    t.traverseDepthFirst((n) => {
-//        if (n.countChildren() == 1) {
-//            var child = Object.values(n.children)[0];
-//            var newKey = n.key + ' ' + child.key;
-//            child.key = newKey;
-//        }
-//    });
+    });
 
     t.mergeNames();
     return t.getNodes();

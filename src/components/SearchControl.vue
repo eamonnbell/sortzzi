@@ -34,15 +34,6 @@
                 <strong>Albums</strong>
             </p>
             <p class="level-item">
-                <a>Tracks</a>
-            </p>
-            <p class="level-item">
-                <a>Works</a>
-            </p>
-            <p class="level-item">
-                <a>Performers</a>
-            </p>
-            <p class="level-item">
                 <a class="button is-success">Clear</a>
             </p>
         </div>
