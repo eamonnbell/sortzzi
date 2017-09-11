@@ -1,9 +1,9 @@
-function pseudoUUID(){
+export function pseudoUUID() {
     var dt = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (dt + Math.random()*16)%16 | 0;
-        dt = Math.floor(dt/16);
-        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid.split('-')[0];
 }
@@ -15,12 +15,13 @@ function TrieNode(key) {
     this.value = key;
     // we keep a reference to parent
     this.parent = null;
-    // we have hash of children
+    // we have hash of children, keyed on key
     this.children = {};
     // check to see if the node is at the end
     this.end = false;
-    this.trackIndex = null;
-    this.id = pseudoUUID();
+    // id is used with JS tree
+    // nodes will be labeled with the value property
+    this.id = pseudoUUID();        
 }
 
 
@@ -38,16 +39,14 @@ TrieNode.prototype.getWord = function () {
 
 TrieNode.prototype.countChildren = function () {
     return Object.keys(this.children).length;
-}
+};
 
 function Trie() {
     this.root = new TrieNode();
 }
 
-// inserts a word into the trie.
-// time complexity: O(k), k = word length
 Trie.prototype.insert = function (word, trackIndex) {
-    var node = this.root; // we start at the root 😬
+    var node = this.root;
 
     // for every character in the word
     for (var i = 0; i < word.length; i++) {
@@ -55,7 +54,6 @@ Trie.prototype.insert = function (word, trackIndex) {
         if (!node.children[word[i]]) {
             // if it doesn't exist, we then create it.
             node.children[word[i]] = new TrieNode(word[i]);
-
             // we also assign the parent to the child node.
             node.children[word[i]].parent = node;
         }
@@ -73,7 +71,6 @@ Trie.prototype.insert = function (word, trackIndex) {
 };
 
 // check if it contains a whole word.
-// time complexity: O(k), k = word length
 Trie.prototype.contains = function (word) {
     var node = this.root;
 
@@ -94,7 +91,6 @@ Trie.prototype.contains = function (word) {
 };
 
 // returns every word with given prefix
-// time complexity: O(p + n), p = prefix length, n = number of child paths
 Trie.prototype.find = function (prefix) {
     var node = this.root;
     var output = [];
@@ -142,9 +138,9 @@ Trie.prototype.traverseDepthFirst = function (callback) {
     })(this.root);
 };
 
-Trie.prototype.mergeNames = function(){
+Trie.prototype.mergeNames = function () {
     this.traverseBreadthFirst((n) => {
-        if (n.countChildren() == 1 && n != this.root){
+        if (n.countChildren() == 1 && n != this.root) {
             var child = Object.values(n.children)[0];
             child.value = n.value + ' ' + child.value;
             child.parent = n.parent;
@@ -152,13 +148,13 @@ Trie.prototype.mergeNames = function(){
     });
 };
 
-Trie.prototype.getNodes = function(){
+Trie.prototype.getNodes = function () {
     var trieNodes = [];
 
     this.traverseBreadthFirst((n) => {
         var o = {};
 
-        if (n.countChildren() < 2 && !n.end && !(n == this.root)){
+        if (n.countChildren() < 2 && !n.end && n !== this.root) {
             return
         }
 
@@ -166,18 +162,18 @@ Trie.prototype.getNodes = function(){
             return
         } else {
             o.text = n.value;
-            o.parent = n.parent == this.root ? '#' : n.parent.id; 
+            o.parent = n.parent == this.root ? '#' : n.parent.id;
             o.id = n.id;
         }
 
         o.state = {}
         o.state.opened = true;
-        
+
         trieNodes.push(o);
     });
 
     return trieNodes;
-}
+};
 
 // recursive function to find all words in the given node.
 function findAllWords(node, arr) {
@@ -192,7 +188,7 @@ function findAllWords(node, arr) {
     }
 }
 
-// -----------------------------------------
+// bulid trie from list of tracks
 export function buildTrieFromTracks(tracks) {
     var t = new Trie();
 
@@ -200,7 +196,7 @@ export function buildTrieFromTracks(tracks) {
     tracks.forEach((track, trackIndex) => {
         // magic
         var trackReplaced = track.replace(/(,|no\.|\.|:)/gi, ' ');
-        console.log({track, trackReplaced});
+        console.log({ track, trackReplaced });
         var word = trackReplaced.split(/\s+/);
         t.insert(word, trackIndex);
     });
