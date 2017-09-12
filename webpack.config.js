@@ -2,7 +2,6 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -82,6 +81,12 @@ if (process.env.NODE_ENV === 'production') {
       'process.env': {
         NODE_ENV: '"development"'
       },
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true,
+      chunksSortMode:'dependency'
     })
   ])
 }
