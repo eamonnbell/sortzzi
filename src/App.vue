@@ -1,19 +1,26 @@
 <template>
   <div id="app">
-    
+
     <Hero></Hero>
 
+    <LoginButton v-if="!loggedIn"
+    v-on:accessTokenReceived="handleAccessToken" 
+    v-on:logOutRequest="handleLogOut" 
+    v-bind:loggedIn="loggedIn"></LoginButton>
+
     <template v-if="loggedIn">
-      <SpotifyProfile></SpotifyProfile>
+      <SpotifyProfile v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn">
+        <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
+      </SpotifyProfile>
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query"></SearchControl>
       <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query"></SearchResults>
     </template>
 
-    <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-bind:loggedIn="loggedIn"></LoginButton>
   </div>
 </template>
 
 <script>
+import localforage from 'localforage';
 
 import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
@@ -25,7 +32,7 @@ export default {
   name: 'app',
   components: {
     Hero,
-    LoginButton, 
+    LoginButton,
     SearchControl,
     SearchResults,
     SpotifyProfile
@@ -40,13 +47,43 @@ export default {
   },
   methods: {
     handleAccessToken(accessToken) {
-      this.$store.currentAccessToken = accessToken;
-      this.$spotify.setAccessToken(this.$store.currentAccessToken);
-      this.loggedIn = true;
+      localforage.setItem('currentAccessToken', accessToken)
+        .then((value) => {
+          console.log('setting currentAccessToken');
+          this.$spotify.setAccessToken(accessToken);
+          this.loggedIn = true;
+        })
+        .catch((err) => console.err(err));
+    },
+    handleLogOut() {
+      console.log('handleLogOut called');
+      localforage.clear()
+        .then(() => {
+          console.log('localforage cleared');
+          this.loggedIn = false;
+        })
+        .catch((err) => console.err(err));
     },
     updateResultsCount(message) {
       this.resultsCount = Number(message);
     }
+  },
+  created() {
+    // check localforage for existing access token
+    localforage.getItem('currentAccessToken')
+      .then((value) => {
+        // learned_that::localforage returns null if value doesn't exist but this still counts as success
+        if (value !== null) {
+          this.$spotify.setAccessToken(value);
+          // TODO check if token has expired with a quick API call
+          this.loggedIn = true;
+        }
+      })
+      .catch((err) => {
+        console.log('cant find currentAccessToken in localforage');
+        console.error(err);
+        this.loggedIn = false;
+      });
   }
 }
 </script>

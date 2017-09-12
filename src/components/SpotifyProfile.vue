@@ -14,15 +14,18 @@
             </div>
             <div class="content">
                 {{ me.id }} has {{ me.followers.total }} follower(s) on Spotify<br>
-                <small>Logged in</small>
-            </div>
+            </div>  
+
+            <slot></slot>
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
     name: 'spotifyprofile',
+    props: ['loggedIn'],
     data() {
         return {
             me: {}
