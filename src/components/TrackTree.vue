@@ -1,5 +1,7 @@
 <template>
+<div>
     <JSTree v-bind:treeData="treeData"></JSTree>
+</div>
 </template>
 
 <script>
