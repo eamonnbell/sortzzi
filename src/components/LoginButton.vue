@@ -11,10 +11,6 @@ import Globals from '../globals'
 export default {
     name: 'loginbutton',
     props: ['loggedIn'],
-    data() {
-        return {
-        }
-    },
     computed: {
         buttonText: function() {
             if (this.loggedIn) {
