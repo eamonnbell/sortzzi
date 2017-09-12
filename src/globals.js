@@ -14,4 +14,4 @@ var globals = {
     }
 };
 
-export default globals.get[process.env.NODE_ENV]
+export default globals[process.env.NODE_ENV]
