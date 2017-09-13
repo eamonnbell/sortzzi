@@ -2340,10 +2340,6 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jquery@>=1.9.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
-
 js-base64@^2.1.9:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.1.tgz#3705897c35fce0e202132630e750d8a17cd220ec"
@@ -2433,12 +2429,6 @@ jstransform@~3.0.0:
     base62 "0.1.1"
     esprima-fb "~3001.1.0-dev-harmony-fb"
     source-map "0.1.31"
-
-jstree-bootstrap-theme@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/jstree-bootstrap-theme/-/jstree-bootstrap-theme-1.0.1.tgz#7d5edc73a846e8da7f94f57a1cc5ddee9d9eab4b"
-  dependencies:
-    jquery ">=1.9.1"
 
 kind-of@^3.0.2:
   version "3.2.2"
