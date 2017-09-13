@@ -2,13 +2,8 @@
     <div class="card spotify_profile">
         <div class="card-content">
             <div class="media">
-                <div class="media-left">
-                    <figure class="image is-48x48">
-                        <img src="http://bulma.io/images/placeholders/96x96.png" alt="Image">
-                    </figure>
-                </div>
                 <div class="media-content">
-                    <p class="title is-4">{{ me.display_name }}</p>
+                    <p class="title is-4"><strong>{{ me.display_name }}</strong></p>
                     <p class="subtitle is-6">{{ me.id }}</p>
                 </div>
             </div>

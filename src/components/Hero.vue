@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-medium is-primary is-bold box">
+  <section class="hero is-small is-primary is-bold box">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
