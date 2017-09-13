@@ -30,7 +30,12 @@ export default {
     },
     watch: {
         query() {
-            this.executeQuery();
+            if(this.query === '') {
+                this.items = [];
+                this.$emit('newResultsCount', this.items.length)
+            } else {
+                this.executeQuery();
+            }
         }
     }
 }

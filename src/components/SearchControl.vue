@@ -34,7 +34,8 @@
                 <strong>Albums</strong>
             </p>
             <p class="level-item">
-                <a class="button is-success">Clear</a>
+                <a class="button is-success"
+                   v-on:click="updateQuery('')">Clear</a>
             </p>
         </div>
     </nav>
