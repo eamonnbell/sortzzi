@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -71,7 +72,10 @@ if (process.env.NODE_ENV === 'production') {
       template: 'index.html',
       inject: true,
       chunksSortMode:'dependency'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: '_headers' }
+    ])
   ])
 } else {
   module.exports.devtool = '#source-map'
@@ -87,6 +91,9 @@ if (process.env.NODE_ENV === 'production') {
       template: 'index.html',
       inject: true,
       chunksSortMode:'dependency'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: '_headers' }
+    ])
   ])
 }
