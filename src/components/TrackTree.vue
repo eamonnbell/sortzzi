@@ -1,12 +1,12 @@
 <template>
-<div>
-    <JSTree v-bind:treeData="treeData"></JSTree>
-</div>
+    <div>
+        <JSTree v-bind:treeData="treeData"></JSTree>
+    </div>
 </template>
 
 <script>
 import JSTree from './JSTree.vue'
-import {buildTrieFromTracks} from '../utils/tracks.js'
+import { buildTrieFromTracks } from '../utils/tracks.js'
 
 export default {
     name: 'tracktree',
@@ -24,16 +24,16 @@ export default {
             var trackArtists = [];
             this.tracks.forEach((t, i) => {
                 t.artists.forEach(a => {
-                    if(!trackArtists.includes(a.name))
+                    if (!trackArtists.includes(a.name))
                         trackArtists.push(a.name)
                 });
             });
             return trackArtists;
         },
-        trackNames(){
+        trackNames() {
             return this.tracks.map(track => track.name);
         },
-        treeData(){
+        treeData() {
             return buildTrieFromTracks(this.trackNames);
         }
     },

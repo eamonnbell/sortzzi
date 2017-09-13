@@ -11,6 +11,10 @@ export default {
         treeData: function(value) {
             $(this.$el).jstree({
                 'core': {
+                    'themes':{
+                        'name': 'proton',
+                        'responsive': 'true'
+                    },
                     'data': value
                 }
             })

@@ -90,4 +90,5 @@ export default {
 
 <style>
   @import "~bulma/css/bulma.css";
+  @import "./jstree/themes/proton/style.css";
 </style>
