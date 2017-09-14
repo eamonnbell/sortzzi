@@ -3,17 +3,20 @@
 
     <Hero></Hero>
 
-    <LoginButton v-if="!loggedIn"
-    v-on:accessTokenReceived="handleAccessToken" 
-    v-on:logOutRequest="handleLogOut" 
-    v-bind:loggedIn="loggedIn"></LoginButton>
+    <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
 
     <template v-if="loggedIn">
       <SpotifyProfile v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn">
         <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
       </SpotifyProfile>
-      <SearchControl v-bind:resultsCount="resultsCount" v-model="query"></SearchControl>
-      <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query"></SearchResults>
+      <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
+
+        <div class="columns">
+          <div class="column">
+            <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
+          </div>
+        </div>
+
     </template>
 
   </div>
@@ -42,6 +45,7 @@ export default {
       message: 'welcome',
       loggedIn: false,
       query: '',
+      searchTypes: ['album', 'track'],
       resultsCount: 0,
     }
   },
@@ -66,6 +70,11 @@ export default {
     },
     updateResultsCount(message) {
       this.resultsCount = Number(message);
+    },
+    updateSearchTypes(message) {
+      console.log('updateSearchtypes');
+      console.log(message);
+      this.searchTypes = message;
     }
   },
   created() {
@@ -89,6 +98,6 @@ export default {
 </script>
 
 <style>
-  @import "~bulma/css/bulma.css";
-  @import "./jstree/themes/proton/style.css";
+@import "~bulma/css/bulma.css";
+@import "./jstree/themes/proton/style.css";
 </style>
