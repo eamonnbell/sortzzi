@@ -8,22 +8,32 @@
         <div class="media-content">
             <div class="content">
                 <p>
-                    <strong>{{ item.name }}</strong>
+                    <strong>{{ item.name }}</strong> - <a @click="collapsed = !collapsed"><span v-if="collapsed">Show TrackTree ⬊</span><span v-else>Hide TrackTree ⬆</span></a>
                     <br>
                     <div class="tags">
                         <span class="tag" v-for="artistName in artistNames">{{ artistName }}</span>
                     </div>
                 </p>
             </div>
+                <TrackTree v-if="!collapsed" v-bind:albumId="item.id"></TrackTree>
         </div>
     </article>
 </template>
 
 <script>
+import TrackTree from './TrackTree.vue'
 
 export default {
     name: 'albumresult',
     props: ['item'],
+    data() {
+        return {
+            collapsed: true
+        }
+    },
+    components: {
+        TrackTree
+    },
     computed: {
         artistNames() {
             var artistNames = this.item.artists.map(artist => artist.name);

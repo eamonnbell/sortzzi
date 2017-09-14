@@ -29,8 +29,8 @@
                             <div class="select">
                                 <select v-model="searchTypes">
                                     <option value="0">Album</option>
-                                    <option value="1">Track</option>
-                                    <option value="2">All</option>
+                                    <option value="1" disabled>Track (Coming soon...)</option>
+                                    <option value="2" disabled>All (Coming soon...)</option>
                                 </select>
                             </div>
                         </div>
@@ -49,7 +49,7 @@ export default {
     props: ['query', 'resultsCount'],
     data() {
         return {
-            searchTypes: 2
+            searchTypes: 0
         }
     },
     methods: {

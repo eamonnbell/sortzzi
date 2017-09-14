@@ -45,7 +45,7 @@ export default {
       message: 'welcome',
       loggedIn: false,
       query: '',
-      searchTypes: ['album', 'track'],
+      searchTypes: ['album'],
       resultsCount: 0,
     }
   },
@@ -72,8 +72,6 @@ export default {
       this.resultsCount = Number(message);
     },
     updateSearchTypes(message) {
-      console.log('updateSearchtypes');
-      console.log(message);
       this.searchTypes = message;
     }
   },
