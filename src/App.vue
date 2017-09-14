@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <Hero></Hero>
+    <Hero v-bind:loggedIn="loggedIn"></Hero>
 
     <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
 
@@ -18,7 +18,7 @@
         </div>
 
     </template>
-
+    <MainFooter></MainFooter>
   </div>
 </template>
 

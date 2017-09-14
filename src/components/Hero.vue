@@ -1,5 +1,6 @@
 <template>
-  <section class="hero is-small is-primary is-bold box">
+  <section v-bind:class="{ 'is-medium': !loggedIn, 'is-small': loggedIn}"
+           class="hero is-primary is-bold box">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -15,7 +16,8 @@
 
 <script>
 export default {
-    name: 'hero'
+    name: 'hero',
+    props: ['loggedIn']
 }
 </script>
 
