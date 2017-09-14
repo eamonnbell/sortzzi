@@ -53,7 +53,7 @@ export default {
                     
                     this.result = Object.assign(this.result, response);
                     this.$emit('newResultsCount', this.resultsCount.total)
-                }, err => console.log(err))
+                }, err => console.error(err))
         }
     },
     computed: {

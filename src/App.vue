@@ -53,20 +53,17 @@ export default {
     handleAccessToken(accessToken) {
       localforage.setItem('currentAccessToken', accessToken)
         .then((value) => {
-          console.log('setting currentAccessToken');
           this.$spotify.setAccessToken(accessToken);
           this.loggedIn = true;
         })
-        .catch((err) => console.err(err));
+        .catch((err) => console.error(err));
     },
     handleLogOut() {
-      console.log('handleLogOut called');
       localforage.clear()
         .then(() => {
-          console.log('localforage cleared');
           this.loggedIn = false;
         })
-        .catch((err) => console.err(err));
+        .catch((err) => console.error(err));
     },
     updateResultsCount(message) {
       this.resultsCount = Number(message);
@@ -87,7 +84,6 @@ export default {
         }
       })
       .catch((err) => {
-        console.log('cant find currentAccessToken in localforage');
         console.error(err);
         this.loggedIn = false;
       });
