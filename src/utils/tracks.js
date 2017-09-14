@@ -196,7 +196,6 @@ export function buildTrieFromTracks(tracks) {
     tracks.forEach((track, trackIndex) => {
         // magic
         var trackReplaced = track.replace(/(,|no\.|\.|:)/gi, ' ');
-        console.log({ track, trackReplaced });
         var word = trackReplaced.split(/\s+/);
         t.insert(word, trackIndex);
     });

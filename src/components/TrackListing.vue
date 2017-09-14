@@ -30,7 +30,6 @@ export default {
         },
     },
     created() {
-        console.log(window.$);
         // fetch tracks from Spotify API
         this.$spotify.getAlbum(this.albumId)
             .then(data => data.tracks.items.map(t => t.id))

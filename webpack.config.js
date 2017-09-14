@@ -3,6 +3,14 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 
+let commitHash = require('child_process')
+.execSync('git rev-parse --short HEAD')
+.toString().trim();
+
+let currentBranch = require('child_process')
+.execSync('git rev-parse --abbrev-ref HEAD')
+.toString().trim();
+  
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -70,6 +78,8 @@ if (process.env.NODE_ENV === 'production') {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      commitHash: commitHash,
+      currentBranch: currentBranch,
       inject: true,
       chunksSortMode:'dependency'
     }),
