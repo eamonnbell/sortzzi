@@ -1,12 +1,20 @@
 import localforage from 'localforage';
 import Vue from 'vue'
+import Vuex from 'vuex'
 import SpotifyWebApi from 'spotify-web-api-js'
 
 import App from './App.vue'
 
-var spotify = new SpotifyWebApi();
+Vue.use(Vuex);
 
-Object.definePrototype(Vue.prototype, '$spotify', {value: spotify});
+const store = new Vuex.Store({
+  state: {
+    loggedIn: false
+  }
+});
+
+var spotify = new SpotifyWebApi();
+Object.defineProperty(Vue.prototype, '$spotify', {value: spotify});
 
 localforage.config({
   name: 'sortzzi'
@@ -14,6 +22,7 @@ localforage.config({
 
 window.vm = new Vue({
   el: '#app',
+  store,
   render: h => h(App)
 });
 
