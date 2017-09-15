@@ -4,7 +4,6 @@ import SpotifyWebApi from 'spotify-web-api-js'
 
 import App from './App.vue'
 
-
 var spotify = new SpotifyWebApi();
 Object.defineProperty(Vue.prototype, '$spotify', {value: spotify});
 
@@ -14,7 +13,6 @@ localforage.config({
 
 window.vm = new Vue({
   el: '#app',
-  store,
   render: h => h(App)
 });
 
