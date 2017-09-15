@@ -75,7 +75,6 @@ if (process.env.NODE_ENV === 'production') {
       filename: 'index.html',
       template: 'index.html',
       commitHash: commitHash,
-      currentBranch: currentBranch,
       inject: true,
       chunksSortMode:'dependency'
     }),
