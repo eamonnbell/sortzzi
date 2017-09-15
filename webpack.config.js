@@ -8,7 +8,7 @@ let commitHash = require('child_process')
 .toString().trim();
 
 let currentBranch = require('child_process')
-.execSync('git rev-parse --abbrev-ref HEAD')
+.execSync('git symbolic-ref --short HEAD')
 .toString().trim();
   
 module.exports = {
