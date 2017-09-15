@@ -303,16 +303,16 @@
   transition: background-color 0.15s, box-shadow 0.15s, color 0.15s;
 }
 .jstree-proton .jstree-hovered {
-  background: #76b6ec;
+  background: #00d1b2;
   color: #ffffff;
   border-radius: 3px;
-  box-shadow: inset 0 0 1px #76b6ec;
+  box-shadow: inset 0 0 1px #00d1b2;
 }
 .jstree-proton .jstree-clicked {
-  background: #3392e3;
+  background: #00d1b2;
   color: #ffffff;
   border-radius: 3px;
-  box-shadow: inset 0 0 1px #3392e3;
+  box-shadow: inset 0 0 1px #00d1b2;
 }
 .jstree-proton .jstree-no-icons .jstree-anchor > .jstree-themeicon {
   display: none;
@@ -351,7 +351,7 @@ filter: gray;
   box-shadow: none;
 }
 .jstree-proton.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
-  background: #76b6ec;
+  background: #00d1b2;
   color: #ffffff;
 }
 .jstree-proton.jstree-checkbox-no-clicked > .jstree-wholerow-ul .jstree-wholerow-clicked {
@@ -359,7 +359,7 @@ filter: gray;
   color: inherit;
 }
 .jstree-proton.jstree-checkbox-no-clicked > .jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-  background: #76b6ec;
+  background: #00d1b2;
   color: #ffffff;
 }
 .jstree-proton > .jstree-striped {
@@ -377,16 +377,16 @@ filter: gray;
   box-sizing: border-box;
 }
 .jstree-proton .jstree-wholerow-hovered {
-  background: #76b6ec;
+  background: #00d1b2;
 }
 .jstree-proton .jstree-wholerow-clicked {
-  background: #3392e3;
-  background: -moz-linear-gradient(top, #3392e3 0%, #3392e3 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3392e3), color-stop(100%, #3392e3));
-  background: -webkit-linear-gradient(top, #3392e3 0%, #3392e3 100%);
-  background: -o-linear-gradient(top, #3392e3 0%, #3392e3 100%);
-  background: -ms-linear-gradient(top, #3392e3 0%, #3392e3 100%);
-  background: linear-gradient(to bottom, #3392e3 0%, #3392e3 100%);
+  background: #00d1b2;
+  background: -moz-linear-gradient(top, #00d1b2 0%, #00d1b2 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00d1b2), color-stop(100%, #00d1b2));
+  background: -webkit-linear-gradient(top, #00d1b2 0%, #00d1b2 100%);
+  background: -o-linear-gradient(top, #00d1b2 0%, #00d1b2 100%);
+  background: -ms-linear-gradient(top, #00d1b2 0%, #00d1b2 100%);
+  background: linear-gradient(to bottom, #00d1b2 0%, #00d1b2 100%);
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color1', endColorstr='@color2',GradientType=0 );*/
 }
 .jstree-proton .jstree-node {
@@ -1029,10 +1029,10 @@ filter: gray;
     height: 30px;
   }
   .jstree-proton-responsive .jstree-wholerow-hovered {
-    background: #76b6ec;
+    background: #00d1b2;
   }
   .jstree-proton-responsive .jstree-wholerow-clicked {
-    background: #3392e3;
+    background: #00d1b2;
   }
   .jstree-proton-responsive .jstree-children .jstree-open + .jstree-open {
     box-shadow: none;
