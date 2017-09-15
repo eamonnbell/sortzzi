@@ -64,11 +64,7 @@ export default {
         .catch((err) => console.error(err));
     },
     handleLogOut() {
-      localforage.clear()
-        .then(() => {
-          this.$store.commit('LOGGED_OUT');
-        })
-        .catch((err) => console.error(err));
+      this.$store.dispatch('logOut');
     },
     updateResultsCount(message) {
       this.resultsCount = Number(message);

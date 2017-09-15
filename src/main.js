@@ -18,6 +18,16 @@ var store = new Vuex.Store({
     LOGGED_OUT (state) {
       state.loggedIn = false;
     }
+  },
+  // learned_that::actions recieve a context object exposing same methods on store instance
+  actions: {
+    logOut(context) {
+      localforage.clear()
+      .then(() => {
+        context.commit('LOGGED_OUT');
+      })
+      .catch((err) => console.error(err));
+    }
   }
 })
 

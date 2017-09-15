@@ -43,7 +43,7 @@ export default {
     methods: {
         handleClick() {
             if(this.loggedIn){
-                this.$emit('logOutRequest');                
+                this.$store.dispatch('logOut');
             }
         }
     },
