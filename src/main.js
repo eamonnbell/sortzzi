@@ -5,7 +5,8 @@ import SpotifyWebApi from 'spotify-web-api-js'
 import App from './App.vue'
 
 var spotify = new SpotifyWebApi();
-Vue.prototype.$spotify = spotify;
+
+Object.definePrototype(Vue.prototype, '$spotify', {value: spotify});
 
 localforage.config({
   name: 'sortzzi'
