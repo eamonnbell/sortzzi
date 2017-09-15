@@ -7,10 +7,6 @@ let commitHash = require('child_process')
 .execSync('git rev-parse --short HEAD')
 .toString().trim();
 
-let currentBranch = require('child_process')
-.execSync('git symbolic-ref --short HEAD')
-.toString().trim();
-  
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -97,7 +93,7 @@ if (process.env.NODE_ENV === 'production') {
       },
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: 'index.html',g
       template: 'index.html',
       inject: true,
       chunksSortMode:'dependency'
