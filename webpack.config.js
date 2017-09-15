@@ -93,7 +93,7 @@ if (process.env.NODE_ENV === 'production') {
       },
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',g
+      filename: 'index.html',
       template: 'index.html',
       inject: true,
       chunksSortMode:'dependency'
