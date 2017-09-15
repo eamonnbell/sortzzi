@@ -10,8 +10,10 @@ import Globals from '../globals'
 
 export default {
     name: 'loginbutton',
-    props: ['loggedIn'],
     computed: {
+        loggedIn() {
+            return this.$store.state.loggedIn;
+        },
         buttonText: function() {
             if (this.loggedIn) {
                 return 'Logout';
@@ -41,7 +43,7 @@ export default {
     methods: {
         handleClick() {
             if(this.loggedIn){
-                this.$emit('logOutRequest');                
+                this.$store.dispatch('logOut');
             }
         }
     },
@@ -71,5 +73,4 @@ export default {
 </script>
 
 <style>
-
 </style>

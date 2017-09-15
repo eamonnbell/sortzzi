@@ -17,7 +17,11 @@
 <script>
 export default {
     name: 'hero',
-    props: ['loggedIn']
+    computed: {
+      loggedIn() {
+        return this.$store.state.loggedIn;
+      }
+    }
 }
 </script>
 
