@@ -20,7 +20,6 @@
 
 export default {
     name: 'spotifyprofile',
-    props: ['loggedIn'],
     data() {
         return {
             me: {}

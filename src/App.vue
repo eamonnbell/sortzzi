@@ -1,14 +1,15 @@
 <template>
   <div id="app">
 
-    <Hero v-bind:loggedIn="loggedIn"></Hero>
+    <Hero></Hero>
 
-    <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
+    <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
 
     <template v-if="loggedIn">
-      <SpotifyProfile v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn">
-        <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut" v-bind:loggedIn="loggedIn"></LoginButton>
+      <SpotifyProfile v-on:logOutRequest="handleLogOut">
+        <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
       </SpotifyProfile>
+      
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
 
         <div class="columns">
@@ -43,10 +44,14 @@ export default {
   data() {
     return {
       message: 'welcome',
-      loggedIn: false,
       query: '',
       searchTypes: ['album'],
       resultsCount: 0,
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.loggedIn;
     }
   },
   methods: {
@@ -54,14 +59,14 @@ export default {
       localforage.setItem('currentAccessToken', accessToken)
         .then((value) => {
           this.$spotify.setAccessToken(accessToken);
-          this.loggedIn = true;
+          this.$store.commit('LOGGED_IN');
         })
         .catch((err) => console.error(err));
     },
     handleLogOut() {
       localforage.clear()
         .then(() => {
-          this.loggedIn = false;
+          this.$store.commit('LOGGED_OUT');
         })
         .catch((err) => console.error(err));
     },
@@ -80,12 +85,12 @@ export default {
         if (value !== null) {
           this.$spotify.setAccessToken(value);
           // TODO check if token has expired with a quick API call
-          this.loggedIn = true;
+          this.$store.commit('LOGGED_IN');
         }
       })
       .catch((err) => {
         console.error(err);
-        this.loggedIn = false;
+        this.$store.commit('LOGGED_OUT');
       });
   }
 }

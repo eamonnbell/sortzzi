@@ -15,7 +15,8 @@
     "localforage": "^1.5.0",
     "lodash": "^4.17.4",
     "spotify-web-api-js": "^0.22.1",
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vuex": "^2.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
