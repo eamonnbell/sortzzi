@@ -30,11 +30,8 @@ export default {
             });
             return trackArtists;
         },
-        trackNames() {
-            return this.tracks.map(track => track.name);
-        },
         treeData() {
-            return buildTrieFromTracks(this.trackNames);
+            return buildTrieFromTracks(this.tracks);
         }
     },
 

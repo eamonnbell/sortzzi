@@ -21,7 +21,7 @@ function TrieNode(key) {
     this.end = false;
     // id is used with JS tree
     // nodes will be labeled with the value property
-    this.id = pseudoUUID();        
+    this.id = pseudoUUID();
 }
 
 
@@ -45,7 +45,7 @@ function Trie() {
     this.root = new TrieNode();
 }
 
-Trie.prototype.insert = function (word, trackIndex) {
+Trie.prototype.insert = function (word, trackIndex, trackId) {
     var node = this.root;
 
     // for every character in the word
@@ -65,7 +65,9 @@ Trie.prototype.insert = function (word, trackIndex) {
         if (i == word.length - 1) {
             // if it is, we set the end flag to true.
             node.end = true;
+            
             node.trackIndex = trackIndex;
+            node.trackId = trackId;
         }
     }
 };
@@ -164,6 +166,12 @@ Trie.prototype.getNodes = function () {
             o.text = n.value;
             o.parent = n.parent == this.root ? '#' : n.parent.id;
             o.id = n.id;
+
+            if (n.end) {
+                o.trackId = n.trackId;
+                o.a_attr = {};
+                o.a_attr.href = `//open.spotify.com/track/${o.trackId}`;
+            } 
         }
 
         o.state = {}
@@ -190,17 +198,24 @@ function findAllWords(node, arr) {
 
 // bulid trie from list of tracks
 export function buildTrieFromTracks(tracks) {
-    var t = new Trie();
+    var T = new Trie();
 
-    // build trie
-    tracks.forEach((track, trackIndex) => {
-        // magic
-        var trackReplaced = track.replace(/(,|no\.|\.|:)/gi, ' ');
-        var word = trackReplaced.split(/\s+/);
-        t.insert(word, trackIndex);
+    var trackObjs = tracks.map(t => {
+        return {
+            name: t.name,
+            id: t.id
+        }
     });
 
-    t.mergeNames();
-    return t.getNodes();
+    // build trie
+    trackObjs.forEach((track, trackIndex) => {
+        // magic
+        var trackReplaced = track.name.replace(/(,|no\.|\.|:)/gi, ' ');
+        var word = trackReplaced.split(/\s+/);
+        T.insert(word, trackIndex, track.id);
+    });
+
+    T.mergeNames();
+    return T.getNodes();
 }
 
