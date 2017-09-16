@@ -1,8 +1,6 @@
 <template>
-    <div id="js-tree">
-    </div>
+    <div id="js-tree"></div>
 </template>
-
 <script>
 export default {
     name: 'jstree',
@@ -33,5 +31,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -1,13 +1,12 @@
 <template>
     <div class="cart content box">
         <strong>Track cart</strong>
-        <a @click="clearCart" href="#">(Clear cart)</a>
+        <a v-on:click="clearCart" href="#">(Clear cart)</a>
         <ul>
-            <li v-for="track in tracks">{{ track.name }}</li>
+            <li v-for="track in tracks" v-bind:key="track.id">{{ track.name }}</li>
         </ul>
     </div>
 </template>
-
 <script>
 export default {
     name: 'trackcart',
