@@ -38,8 +38,9 @@ export default {
 
 <style scoped>
 .spotify_profile {
-    position: absolute;
+    position: fixed;
     right: 0px;
     top: 0px;
+    z-index: 1;
 }
 </style>

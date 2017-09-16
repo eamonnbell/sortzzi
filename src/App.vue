@@ -8,10 +8,10 @@
     <template v-if="loggedIn">
       <SpotifyProfile v-on:logOutRequest="handleLogOut">
         <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
+        <TrackCart></TrackCart>
       </SpotifyProfile>
       
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-
         <div class="columns">
           <div class="column">
             <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
@@ -31,6 +31,7 @@ import LoginButton from './components/LoginButton.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
+import TrackCart from './components/TrackCart.vue'
 
 export default {
   name: 'app',
@@ -39,7 +40,8 @@ export default {
     LoginButton,
     SearchControl,
     SearchResults,
-    SpotifyProfile
+    SpotifyProfile,
+    TrackCart
   },
   data() {
     return {

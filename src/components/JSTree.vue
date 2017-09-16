@@ -16,7 +16,8 @@ export default {
                         'responsive': 'true'
                     },
                     'data': value
-                }
+                },
+                'plugins':['checkbox']
             })
         }
     },
