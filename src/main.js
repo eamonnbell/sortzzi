@@ -9,7 +9,8 @@ Vue.use(Vuex);
 
 var store = new Vuex.Store({
   state: {
-    loggedIn: false
+    loggedIn: false,
+    trackCart: []
   },
   mutations: {
     LOGGED_IN (state) {
@@ -17,7 +18,15 @@ var store = new Vuex.Store({
     },
     LOGGED_OUT (state) {
       state.loggedIn = false;
-    }
+    },
+    ADD_TO_TRACK_CART (state, payload) {
+      if(!state.trackCart.includes(payload) && payload != undefined)
+        state.trackCart.push(payload);
+    },
+    REMOVE_FROM_TRACK_CART(state, payload){
+      if(state.trackCart.includes(payload))
+        state.trackCart = state.trackCart.filter(item => item != payload);
+    },
   },
   // learned_that::actions recieve a context object exposing same methods on store instance
   actions: {
