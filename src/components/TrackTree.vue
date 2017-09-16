@@ -1,6 +1,7 @@
 <template>
     <div>
-        <JSTree v-bind:treeData="treeData"></JSTree>
+        <JSTree v-on:ChangedJsTree="handleChangedJsTree"
+                v-bind:treeData="treeData"></JSTree>
     </div>
 </template>
 
@@ -17,6 +18,21 @@ export default {
     data() {
         return {
             tracks: []
+        }
+    },
+    methods: {
+        handleChangedJsTree(e, data) {
+            // add newly selected trackIds to cart state
+            data.changed.selected.forEach((nodeId) => {
+                var trackId = data.instance.get_node(nodeId).original.trackId;
+                this.$store.commit('ADD_TO_TRACK_CART', trackId);
+            });
+
+            // remove newly deselected trackIds from cart state
+            data.changed.deselected.forEach((nodeId) => {
+                var trackId = data.instance.get_node(nodeId).original.trackId;
+                this.$store.commit('REMOVE_FROM_TRACK_CART', trackId);
+            });
         }
     },
     computed: {
