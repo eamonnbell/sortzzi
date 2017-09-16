@@ -1,8 +1,9 @@
 <template>
-    <div class="cart">
+    <div class="cart content box">
         <strong>Track cart</strong>
+        <a @click="clearCart" href="#">(Clear cart)</a>
         <ul>
-            <li v-for="track in trackCart">{{ track }}</li>
+            <li v-for="track in tracks">{{ track.name }}</li>
         </ul>
     </div>
 </template>
@@ -10,9 +11,33 @@
 <script>
 export default {
     name: 'trackcart',
+    data() {
+        return {
+            tracks: []
+        }
+    },
     computed: {
-        trackCart(){
+        trackCart() {
             return this.$store.state.trackCart;
+        },
+    },
+    methods: {
+        clearCart() {
+            this.$store.commit('CLEAR_TRACK_CART');
+        }
+    },
+    watch: {
+        trackCart: function(value) {
+            if (value.length == 0) {
+                this.tracks = [];
+            } else {
+                this.$spotify.getTracks(value)
+                    .then((response) => {
+                        this.tracks = response.tracks;
+                    })
+                    .catch((err) => console.error(err));
+            }
+
         }
     }
 }
@@ -20,6 +45,6 @@ export default {
 
 <style scoped>
 .cart {
-    background: lightgrey;
+    margin: 1rem;
 }
 </style>

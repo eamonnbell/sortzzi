@@ -27,6 +27,9 @@ var store = new Vuex.Store({
       if(state.trackCart.includes(payload))
         state.trackCart = state.trackCart.filter(item => item != payload);
     },
+    CLEAR_TRACK_CART(state){
+      state.trackCart = [];
+    },
   },
   // learned_that::actions recieve a context object exposing same methods on store instance
   actions: {
