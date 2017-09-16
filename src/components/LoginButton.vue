@@ -26,7 +26,7 @@ export default {
                 client_id: Globals.SPOTIFY_CLIENT_ID,
                 response_type: 'token',
                 redirect_uri: Globals.REDIRECT_URI,
-                scope: ''
+                scope: Globals.SPOTIFY_REQUESTED_SCOPE
             };
             // learned_that::the URLSearchParams API exists
             const params = new URLSearchParams('');

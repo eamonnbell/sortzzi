@@ -10,13 +10,13 @@
         <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
         <TrackCart></TrackCart>
       </SpotifyProfile>
-      
+
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-        <div class="columns">
-          <div class="column">
-            <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
-          </div>
+      <div class="columns">
+        <div class="column">
+          <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
         </div>
+      </div>
 
     </template>
     <MainFooter></MainFooter>
