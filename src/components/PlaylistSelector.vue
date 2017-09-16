@@ -1,5 +1,10 @@
 <template>
-    <Multiselect placeholder="Select a playlist" v-model="value" :options="options"></Multiselect>
+    <Multiselect placeholder="Select a playlist"
+                 v-model="selected"
+                 :options="playlists"
+                 track-by="uri"
+                 label="name">
+    </Multiselect>
 </template>
 
 <script>
@@ -12,21 +17,21 @@ export default {
     },
     data() {
         return {
-            value: '',
+            selected: {},
             playlists: []
         }
     },
-    computed: {
-        options() {
-            return this.playlists.map((p => p.name))
-        }
-    },
     created() {
-        this.$spotify.getUserPlaylists({limit: 50})
+        this.$spotify.getUserPlaylists({ limit: 50 })
             .then((response) => {
                 this.playlists = response.items;
             })
             .catch((err) => console.error(err))
+    },
+    watch: {
+        selected(value) {
+            this.$emit('selectedPlaylistChanged', value);
+        }
     }
 }
 </script>

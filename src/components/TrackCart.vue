@@ -9,10 +9,9 @@
         </div>
         <div class="field has-addons">
           <div class="control">
-            <a class="button">Add to</a>
+            <a @click="addTracksToTargetPlaylist" class="button">Add to</a>
           </div>
-          <div class>
-            <PlaylistSelector></PlaylistSelector>
+            <PlaylistSelector v-on:selectedPlaylistChanged="handleSelectedPlaylistChanged"></PlaylistSelector>
           </div>
         </div>
     </div>
@@ -27,7 +26,8 @@ export default {
     },
     data() {
         return {
-            tracks: []
+            tracks: [],
+            cartTargetPlaylist: '',
         }
     },
     computed: {
@@ -38,7 +38,24 @@ export default {
     methods: {
         clearCart() {
             this.$store.commit('CLEAR_TRACK_CART');
-        }
+        },
+        handleSelectedPlaylistChanged(value) {
+            this.cartTargetPlaylist = value;
+        },
+        addTracksToTargetPlaylist(){
+            var targetPlaylistURI = this.cartTargetPlaylist.uri;
+            // TODO de-brittle
+            var match = targetPlaylistURI.match(/spotify:user:(.*):playlist:(.*)/);
+            var userId = match[1];
+            var playlistId = match[2];
+            var trackURIs = this.tracks.map((t) => t.uri);
+            this.$spotify.addTracksToPlaylist(userId, playlistId, trackURIs)
+                .then((response) => {
+                    // TODO notify user
+                    this.$store.commit('CLEAR_TRACK_CART');
+                })
+                .catch((err) => console.error(err));
+        },
     },
     watch: {
         trackCart: function(value) {
