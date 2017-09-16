@@ -1,23 +1,29 @@
 <template>
-    <article class="media">
-        <figure class="media-left">
-            <p class="image is-64x64">
-                <img v-bind:src="item.images[1].url">
-            </p>
-        </figure>
-        <div class="media-content">
-            <div class="content">
+    <div class="box container">
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-64x64">
+                    <img v-bind:src="item.images[1].url">
+                </p>
+            </figure>
+            <div class="media-content">
                 <p>
-                    <strong>{{ item.name }}</strong> - <a @click="collapsed = !collapsed"><span v-if="collapsed">Show TrackTree ⬊</span><span v-else>Hide TrackTree ⬆</span></a>
+                    <strong>{{ item.name }}</strong> -
+                    <a @click="collapsed = !collapsed">
+                        <span v-if="collapsed">Show TrackTree</span>
+                        <span v-else>Hide TrackTree</span>
+                    </a>
                     <br>
                     <div class="tags">
                         <span class="tag" v-for="artistName in artistNames">{{ artistName }}</span>
                     </div>
                 </p>
             </div>
-                <TrackTree v-if="!collapsed" v-bind:albumId="item.id"></TrackTree>
-        </div>
-    </article>
+        </article>
+
+        <TrackTree v-if="!collapsed" v-bind:albumId="item.id"></TrackTree>
+
+    </div>
 </template>
 
 <script>
@@ -43,4 +49,5 @@ export default {
 }
 </script>
 <style>
+
 </style>
