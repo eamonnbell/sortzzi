@@ -9,16 +9,21 @@ export default {
     props: ['treeData'],
     watch: {
         treeData: function(value) {
-            $(this.$el).jstree({
-                'core': {
-                    'themes':{
-                        'name': 'proton',
-                        'responsive': 'true'
+            var vm = this;
+            $(this.$el)
+                .on('changed.jstree', function(e, data){
+                    vm.$emit('ChangedJsTree', e, data);
+                })
+                .jstree({
+                    'core': {
+                        'themes':{
+                            'name': 'proton',
+                            'responsive': 'true'
+                        },
+                        'data': value
                     },
-                    'data': value
-                },
-                'plugins':['checkbox']
-            })
+                    'plugins':['checkbox', 'changed']
+                })
         }
     },
     destroyed() {
