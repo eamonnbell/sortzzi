@@ -41,7 +41,7 @@ function Trie() {
     this.root = new TrieNode();
 }
 
-Trie.prototype.insert = function (word, trackIndex, trackId) {
+Trie.prototype.insert = function (word, trackIndex, track) {
     var node = this.root;
 
     // for every character in the word
@@ -63,7 +63,9 @@ Trie.prototype.insert = function (word, trackIndex, trackId) {
             node.end = true;
             
             node.trackIndex = trackIndex;
-            node.trackId = trackId;
+            node.trackId = track.id;
+            node.discNumber = track.disc_number;
+            node.trackNumber = track.track_number;
         }
     }
 };
@@ -164,7 +166,10 @@ Trie.prototype.getNodes = function () {
             o.id = n.id;
 
             if (n.end) {
+                o.text = n.value + ` (Track ${n.trackNumber})`;                
                 o.trackId = n.trackId;
+                o.discNumber = n.discNumber;
+                o.trackNumber = n.trackNumber;
                 o.a_attr = {};
                 o.a_attr.href = `//open.spotify.com/track/${o.trackId}`;
             } 
@@ -196,19 +201,13 @@ function findAllWords(node, arr) {
 export function buildTrieFromTracks(tracks) {
     var T = new Trie();
 
-    var trackObjs = tracks.map(t => {
-        return {
-            name: t.name,
-            id: t.id
-        }
-    });
-
     // build trie
-    trackObjs.forEach((track, trackIndex) => {
+    tracks.forEach((track, trackIndex) => {
         // magic
         var trackReplaced = track.name.replace(/(,|no\.|\.|:)/gi, ' ');
         var word = trackReplaced.split(/\s+/);
-        T.insert(word, trackIndex, track.id);
+
+        T.insert(word, trackIndex, track);
     });
 
     T.mergeNames();
