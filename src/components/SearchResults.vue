@@ -1,18 +1,16 @@
 <template>
-<div v-if="query !== ''" class="container">
+    <div v-if="query !== ''">
+        <div v-if="result.albums.items.length > 0" class="box">
+            <h2 class="title">Albums</h2>
+            <AlbumResult v-for="item in result.albums.items" v-bind:item="item" v-bind:key="item.id"></AlbumResult>
+        </div>
 
-    <div v-if="result.albums.items.length > 0" class="box">
-    <h2 class="title">Albums</h2>
-    <h2 class="subtitle is-5">{{ resultsCount.albums }}</h2>
-    <AlbumResult v-for="item in result.albums.items" v-bind:item="item" v-bind:key="item.id"></AlbumResult>
+        <div v-if="result.tracks.items.length > 0" class="box">
+            <h2 class="title">Tracks</h2>
+            <h2 class="subtitle is-5">{{ resultsCount.tracks }}</h2>
+            <TrackResult v-for="item in result.tracks.items" v-bind:item="item" v-bind:key="item.id"></TrackResult>
+        </div>
     </div>
-    
-    <div v-if="result.tracks.items.length > 0" class="box">
-    <h2 class="title">Tracks</h2>
-    <h2 class="subtitle is-5">{{ resultsCount.tracks }}</h2>
-    <TrackResult v-for="item in result.tracks.items" v-bind:item="item" v-bind:key="item.id"></TrackResult>
-    </div>
-</div>
 </template>
 <script>
 import AlbumResult from './AlbumResult.vue'
@@ -24,10 +22,10 @@ export default {
         query: String,
         searchTypes: {
             type: Array,
-            default(){
+            default() {
                 return ['album', 'track']
             }
-        }  
+        }
     },
     components: {
         AlbumResult, TrackResult
@@ -50,7 +48,7 @@ export default {
                 .then(response => {
                     this.result.albums.items = [];
                     this.result.tracks.items = [];
-                    
+
                     this.result = Object.assign(this.result, response);
                     this.$emit('newResultsCount', this.resultsCount.total)
                 }, err => console.error(err))
@@ -64,9 +62,9 @@ export default {
             };
 
             var total = Object.values(resultsByType)
-                            .reduce((a, b) => a + b);
+                .reduce((a, b) => a + b);
 
-            return Object.assign(resultsByType, {total})
+            return Object.assign(resultsByType, { total })
         }
     },
     watch: {
@@ -83,4 +81,5 @@ export default {
 </script>
 
 <style>
+
 </style>

@@ -1,6 +1,6 @@
 <template>
     <!-- Main container -->
-    <div class="container box">
+    <div class="box">
         <nav class="level">
             <!-- Left side -->
             <div class="level-left">

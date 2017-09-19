@@ -1,5 +1,5 @@
 <template>
-    <div class="box container">
+    <div class="box">
         <article class="media">
             <figure class="media-left">
                 <p class="image is-64x64">

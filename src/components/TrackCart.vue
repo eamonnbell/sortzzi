@@ -1,7 +1,8 @@
 <template>
-    <div v-if="trackCart.length !== 0">
-        <div class="cart content box">
-            <strong>Track cart</strong>
+    <div class="box">
+        <h2 class="title">Track Cart</h2>
+        <div class="content">
+            <strong>Tracks to add...</strong>
             <a v-on:click="clearCart" href="#">(Clear cart)</a>
             <ul>
                 <li v-for="track in tracks" v-bind:key="track.id">{{ track.name }}</li>
@@ -74,8 +75,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.cart {
-    margin: 1rem;
-}
+<style>
 </style>

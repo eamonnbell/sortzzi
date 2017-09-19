@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>sortzzi</title>
+  <title>sortzzi (@<%= htmlWebpackPlugin.options.commitHash %>)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.4/jstree.min.js" integrity="sha256-1OGLYTeH1zw6ytfnT52s2WfE2Rwv9tRSmM29RfqnnQo="
@@ -12,25 +12,6 @@
 </head>
 
 <body>
-  <section class="section">
-    <div id="app" class="container"></div>
-  </section>
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <p>
-          <strong>Sortzzi</strong> by <a href="http://eamonnbell.com">Eamonn Bell</a>. The source code is licensed under
-          the
-          <a href="https://github.com/eamonnbell/sortzzi/blob/master/LICENSE">Apache License 2.0</a> (as of September 2017).
-        </p>
-        <p>
-          <a href="https://github.com/eamonnbell/sortzzi">
-            Source (GitHub)
-          </a> - Built @
-          <%= htmlWebpackPlugin.options.commitHash %>
-        </p>
-      </div>
-    </div>
-  </footer>
+    <div id="app"></div>
 </body>
 </html>

@@ -1,26 +1,38 @@
 <template>
   <div id="app">
+    <div>
 
-    <Hero></Hero>
+    <Hero>
+      <LoginButton class="is-light" v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
+    </Hero>
 
-    <LoginButton v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
 
+    <div class="container">
     <template v-if="loggedIn">
-      <SpotifyProfile v-on:logOutRequest="handleLogOut">
-        <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
-        <TrackCart></TrackCart>
-      </SpotifyProfile>
-
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
+      
       <div class="columns">
-        <div class="column">
+        <div class="column is-two-thirds">
           <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
+        </div>
+        <div class="column is-one-third">
+          <div class="box">
+            <SpotifyProfile v-on:logOutRequest="handleLogOut">
+              <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
+            </SpotifyProfile>
+            <TrackCart></TrackCart>
+          </div>
+
         </div>
       </div>
 
     </template>
+    </div>
+    
     <MainFooter></MainFooter>
   </div>
+    </div>
+  
 </template>
 
 <script>
@@ -28,6 +40,7 @@ import localforage from 'localforage';
 
 import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
+import MainFooter from './components/MainFooter.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
@@ -38,6 +51,7 @@ export default {
   components: {
     Hero,
     LoginButton,
+    MainFooter,
     SearchControl,
     SearchResults,
     SpotifyProfile,

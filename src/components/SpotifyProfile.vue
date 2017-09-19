@@ -1,6 +1,7 @@
 <template>
-    <div class="card spotify_profile">
-        <div class="card-content">
+    <div class="box spotify_profile">
+        <h2 class="title">Profile</h2>
+        <div class="content">
             <div class="media">
                 <div class="media-content">
                     <p class="title is-4"><strong>{{ me.display_name }}</strong></p>
@@ -35,11 +36,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.spotify_profile {
-    position: fixed;
-    right: 0px;
-    top: 0px;
-    z-index: 9;
-}
+<style>
 </style>

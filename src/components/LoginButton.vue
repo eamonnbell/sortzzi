@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <!-- learned_that::bulma uses anchor tags for buttons -->
-        <a class="button is-primary" v-bind:href="loggedIn ? '#' : loginHref" @click="handleClick">{{ buttonText }}</a>
-    </div>
+<div>
+    <a class="button is-light" v-bind:href="loggedIn ? '#' : loginHref" @click="handleClick">{{ buttonText }}</a>
+</div>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <section v-bind:class="{ 'is-medium': !loggedIn, 'is-small': loggedIn}"
-           class="hero is-primary is-bold box">
+           class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -9,6 +9,7 @@
           <h2 class="subtitle">
             Fix classical music on Spotify
           </h2>
+          <slot></slot>
         </div>
       </div>
     </section>
@@ -26,5 +27,4 @@ export default {
 </script>
 
 <style>
-
 </style>
