@@ -1,0 +1,6 @@
+.multiselect__option--highlight:after {
+    background: #00d1b2;
+}
+.multiselect__option--highlight {
+    background: #00d1b2;
+}
