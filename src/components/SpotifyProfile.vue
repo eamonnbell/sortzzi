@@ -22,7 +22,11 @@ export default {
     name: 'spotifyprofile',
     data() {
         return {
-            me: {}
+            me: {
+                followers: {
+                    total: 0
+                }
+            }
         }
     },
     created() {
