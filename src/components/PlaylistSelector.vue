@@ -4,6 +4,7 @@
                  :options="playlists"
                  track-by="uri"
                  label="name">
+                 <slot name="noResult">Wat</slot>
     </Multiselect>
 </template>
 
@@ -37,4 +38,5 @@ export default {
 </script>
 <style>
 @import "~vue-multiselect/dist/vue-multiselect.min.css";
+@import "../css/multiselect.css";
 </style>

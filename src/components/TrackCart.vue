@@ -8,10 +8,10 @@
                 <li v-for="track in tracks" v-bind:key="track.id">{{ track.name }}</li>
             </ul>
         </div>
-        <div class="field has-addons">
+        <div>
           <div class="control">
-            <a @click="addTracksToTargetPlaylist" class="button">Add to</a>
-          </div>
+            <a @click="addTracksToTargetPlaylist" class="button">Add to...</a>
+          </div class="control">
             <PlaylistSelector v-on:selectedPlaylistChanged="handleSelectedPlaylistChanged"></PlaylistSelector>
           </div>
         </div>
