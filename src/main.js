@@ -2,7 +2,7 @@ import localforage from 'localforage';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import SpotifyWebApi from 'spotify-web-api-js'
-
+import nanoid from 'nanoid';
 import App from './App.vue'
 
 Vue.use(Vuex);
@@ -10,7 +10,8 @@ Vue.use(Vuex);
 var store = new Vuex.Store({
   state: {
     loggedIn: false,
-    trackCart: []
+    trackCart: [],
+    notifications: []
   },
   mutations: {
     LOGGED_IN (state) {
@@ -27,6 +28,12 @@ var store = new Vuex.Store({
       if(state.trackCart.includes(payload))
         state.trackCart = state.trackCart.filter(item => item != payload);
     },
+    ADD_TO_NOTIFICATIONS(state, notification){
+      state.notifications.push(notification);
+    },
+    REMOVE_FROM_NOTIFICATIONS(state, notificationId){
+      state.notifications = state.notifications.filter(item => item.id != notificationId)
+    },
     CLEAR_TRACK_CART(state){
       state.trackCart = [];
     },
@@ -39,6 +46,10 @@ var store = new Vuex.Store({
         context.commit('LOGGED_OUT');
       })
       .catch((err) => console.error(err));
+    },
+    notify(context, payload){
+      var notification = Object.assign({id: nanoid()}, payload);
+      context.commit('ADD_TO_NOTIFICATIONS', notification);
     }
   }
 })

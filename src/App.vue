@@ -2,10 +2,13 @@
   <div id="app">
     <div>
 
+   <div class="notifications">
+      <Notification v-for="notification in notifications" v-bind:notification="notification"></Notification>
+    </div>
+
     <Hero>
       <LoginButton class="is-light" v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
     </Hero>
-
 
     <div class="container">
     <template v-if="loggedIn">
@@ -41,6 +44,7 @@ import localforage from 'localforage';
 import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
 import MainFooter from './components/MainFooter.vue'
+import Notification from './components/Notification.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
@@ -52,6 +56,7 @@ export default {
     Hero,
     LoginButton,
     MainFooter,
+    Notification,
     SearchControl,
     SearchResults,
     SpotifyProfile,
@@ -68,6 +73,9 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.state.loggedIn;
+    },
+    notifications() {
+      return this.$store.state.notifications;
     }
   },
   methods: {
@@ -111,4 +119,10 @@ export default {
 <style>
 @import "~bulma/css/bulma.css";
 @import "./jstree/themes/proton/style.css";
+.notifications {
+    width: 35vw;
+    right: 0px;
+    position: fixed !important;
+    z-index: 247365
+}
 </style>
