@@ -13,7 +13,8 @@
     <div class="container">
     <template v-if="loggedIn">
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-      
+      <PaginationControl></PaginationControl>
+
       <div class="columns">
         <div class="column is-two-thirds">
           <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
@@ -45,6 +46,7 @@ import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
 import MainFooter from './components/MainFooter.vue'
 import Notification from './components/Notification.vue'
+import PaginationControl from './components/PaginationControl.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
@@ -57,6 +59,7 @@ export default {
     LoginButton,
     MainFooter,
     Notification,
+    PaginationControl,
     SearchControl,
     SearchResults,
     SpotifyProfile,
