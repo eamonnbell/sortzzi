@@ -8,7 +8,7 @@
       <a class="pagination-link"
          v-bind:class="{'is-current': pageNumber === selected }"
          @click="selected = pageNumber">{{ pageNumber }}</a>
-    </li>   
+    </li>
   </ul>
 </nav>
 </div>
@@ -19,8 +19,8 @@ export default {
     name: 'paginationcontrol',
     data() {
         return {
-            pages: 5,
-            selected: 2
+            pages: 10,
+            selected: this.$store.state.searchResultsPage
         }
     },
     computed: {
@@ -29,7 +29,7 @@ export default {
         },
         atLastPage(){
             return this.selected >= this.pages;
-        }
+        },
     },
     methods: {
         nextPage() {
@@ -41,6 +41,11 @@ export default {
             if(!this.atFirstPage) {
                 this.selected -= 1;
             }
+        }
+    },
+    watch: {
+        selected(value) {
+            this.$store.commit('UPDATE_SEARCH_RESULTS_PAGE', value);
         }
     }
 }
