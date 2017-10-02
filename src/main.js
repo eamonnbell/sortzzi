@@ -14,27 +14,27 @@ var store = new Vuex.Store({
     notifications: []
   },
   mutations: {
-    LOGGED_IN (state) {
+    LOGGED_IN(state) {
       state.loggedIn = true;
     },
-    LOGGED_OUT (state) {
+    LOGGED_OUT(state) {
       state.loggedIn = false;
     },
-    ADD_TO_TRACK_CART (state, payload) {
-      if(!state.trackCart.includes(payload) && payload != undefined)
+    ADD_TO_TRACK_CART(state, payload) {
+      if (!state.trackCart.includes(payload) && payload != undefined)
         state.trackCart.push(payload);
     },
-    REMOVE_FROM_TRACK_CART(state, payload){
-      if(state.trackCart.includes(payload))
+    REMOVE_FROM_TRACK_CART(state, payload) {
+      if (state.trackCart.includes(payload))
         state.trackCart = state.trackCart.filter(item => item != payload);
     },
-    ADD_TO_NOTIFICATIONS(state, notification){
+    ADD_TO_NOTIFICATIONS(state, notification) {
       state.notifications.push(notification);
     },
-    REMOVE_FROM_NOTIFICATIONS(state, notificationId){
+    REMOVE_FROM_NOTIFICATIONS(state, notificationId) {
       state.notifications = state.notifications.filter(item => item.id != notificationId)
     },
-    CLEAR_TRACK_CART(state){
+    CLEAR_TRACK_CART(state) {
       state.trackCart = [];
     },
   },
@@ -42,13 +42,17 @@ var store = new Vuex.Store({
   actions: {
     logOut(context) {
       localforage.clear()
-      .then(() => {
-        context.commit('LOGGED_OUT');
-      })
-      .catch((err) => console.error(err));
+        .then(() => {
+          context.commit('LOGGED_OUT');
+        })
+        .catch((err) => this.$store.dispatch('notify', {
+          message: err.message,
+          type: 'warning'
+        }));
     },
-    notify(context, payload){
-      var notification = Object.assign({id: nanoid()}, payload);
+    notify(context, payload) {
+      var notification = Object.assign({ id: nanoid() }, payload);
+      console.log(notification);
       context.commit('ADD_TO_NOTIFICATIONS', notification);
     }
   }
@@ -56,7 +60,7 @@ var store = new Vuex.Store({
 
 var spotify = new SpotifyWebApi();
 
-Object.defineProperty(Vue.prototype, '$spotify', {value: spotify});
+Object.defineProperty(Vue.prototype, '$spotify', { value: spotify });
 
 localforage.config({
   name: 'sortzzi'

@@ -85,7 +85,7 @@ export default {
           this.$spotify.setAccessToken(accessToken);
           this.$store.commit('LOGGED_IN');
         })
-        .catch((err) => console.error(err));
+        .catch((err) => this.$store.dispatch('notify', {message: err.message, type: 'warning'}));
     },
     handleLogOut() {
       this.$store.dispatch('logOut');
@@ -109,7 +109,7 @@ export default {
         }
       })
       .catch((err) => {
-        console.error(err);
+        this.$store.dispatch('notify', {message: err.message, type: 'warning'});
         this.$store.commit('LOGGED_OUT');
       });
   }

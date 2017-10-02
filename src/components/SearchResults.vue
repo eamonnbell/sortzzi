@@ -51,7 +51,10 @@ export default {
 
                     this.result = Object.assign(this.result, response);
                     this.$emit('newResultsCount', this.resultsCount.total)
-                }, err => console.error(err))
+                }, err => this.$store.dispatch('notify', {
+                    message: JSON.parse(err.response).error.message,
+                    type: 'warning'
+                }))
         }
     },
     computed: {

@@ -9,12 +9,12 @@
             </ul>
         </div>
         <div>
-          <div class="control">
-            <a @click="addTracksToTargetPlaylist" class="button">Add to...</a>
-          </div class="control">
+            <div class="control">
+                <a @click="addTracksToTargetPlaylist" class="button">Add to...</a>
+            </div class="control">
             <PlaylistSelector v-on:selectedPlaylistChanged="handleSelectedPlaylistChanged"></PlaylistSelector>
-          </div>
         </div>
+    </div>
     </div>
 </template>
 <script>
@@ -38,13 +38,13 @@ export default {
     },
     methods: {
         clearCart() {
-            this.$store.dispatch('notify', {message: 'Cleared cart'});
+            this.$store.dispatch('notify', { message: 'Cleared cart' });
             this.$store.commit('CLEAR_TRACK_CART');
         },
         handleSelectedPlaylistChanged(value) {
             this.cartTargetPlaylist = value;
         },
-        addTracksToTargetPlaylist(){
+        addTracksToTargetPlaylist() {
             var targetPlaylistURI = this.cartTargetPlaylist.uri;
             // TODO de-brittle
             var match = targetPlaylistURI.match(/spotify:user:(.*):playlist:(.*)/);
@@ -56,7 +56,10 @@ export default {
                     // TODO notify user
                     this.$store.commit('CLEAR_TRACK_CART');
                 })
-                .catch((err) => console.error(err));
+                .catch((err) => this.$store.dispatch('notify', {
+                    message: JSON.parse(err.response).error.message,
+                    type: 'warning'
+                }));
         },
     },
     watch: {
@@ -68,7 +71,10 @@ export default {
                     .then((response) => {
                         this.tracks = response.tracks;
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => this.$store.dispatch('notify', {
+                        message: JSON.parse(err.response).error.message,
+                        type: 'warning'
+                    }));
             }
 
         }
@@ -77,4 +83,5 @@ export default {
 </script>
 
 <style>
+
 </style>

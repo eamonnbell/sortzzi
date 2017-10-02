@@ -27,7 +27,10 @@ export default {
             .then((response) => {
                 this.playlists = response.items;
             })
-            .catch((err) => console.error(err))
+            .catch((err) => this.$store.dispatch('notify', {
+                message: JSON.parse(err.response).error.message,
+                type: 'warning'
+            }))
     },
     watch: {
         selected(value) {

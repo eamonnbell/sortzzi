@@ -35,7 +35,10 @@ export default {
             .then(data => data.tracks.items.map(t => t.id))
             .then(trackIds => this.$spotify.getTracks(trackIds))
             .then(tracksInfo => this.tracks = tracksInfo.tracks)
-            .catch(err => console.error(err));
+            .catch(err => this.$store.dispatch('notify', {
+                message: JSON.parse(err.response).error.message, 
+                type: 'warning'
+            }));
     },
 }
 </script>
