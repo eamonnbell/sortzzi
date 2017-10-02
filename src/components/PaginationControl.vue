@@ -4,10 +4,11 @@
   <a class="pagination-previous" v-bind:disabled="selected <= 1" @click="previousPage" >Previous</a>
   <a class="pagination-next" v-bind:disabled="selected >= pages" @click="nextPage">Next page</a>
   <ul class="pagination-list">
-    <li v-for="pageNumber in pages">
-      <a class="pagination-link"
+    <li v-for="pageNumber in pagesToShow">
+      <a v-if="pageNumber !== '...'" class="pagination-link"
          v-bind:class="{'is-current': pageNumber === selected }"
          @click="selected = pageNumber">{{ pageNumber }}</a>
+      <span v-else class="pagination-ellipsis">&hellip;</span>
     </li>
   </ul>
 </nav>
@@ -15,6 +16,8 @@
 </template>
 
 <script>
+import { pagination } from '../utils/pagination'
+
 export default {
     name: 'paginationcontrol',
     props: ['resultsCount'],
@@ -27,6 +30,9 @@ export default {
         pages() {
             return Math.ceil(this.resultsCount / 10);
         },
+        pagesToShow(){
+            return pagination(this.selected, this.pages);
+        },  
         atFirstPage() {
             return this.selected <= 1;
         },
