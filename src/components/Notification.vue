@@ -24,13 +24,11 @@ export default {
     methods: {
         deleteNotification() {
             this.isShown = false;
-            setInterval(() => {
-                this.$store.commit('REMOVE_FROM_NOTIFICATIONS', this.notification.id)
-            }, 2500);
+            this.$store.commit('REMOVE_FROM_NOTIFICATIONS', this.notification.id);
         }
     },
     mounted() {
-        setInterval(this.deleteNotification, 2500);
+        setTimeout(this.deleteNotification, 2500);
     }
 }
 </script>
