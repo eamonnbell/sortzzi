@@ -1,7 +1,6 @@
 <template>
     <div>
-        <JSTree v-on:ChangedJsTree="handleChangedJsTree"
-                v-bind:treeData="treeData"></JSTree>
+        <JSTree v-on:ChangedJsTree="handleChangedJsTree" v-bind:treeData="treeData"></JSTree>
     </div>
 </template>
 
@@ -60,7 +59,7 @@ export default {
             .catch(err => this.$store.dispatch('notify', {
                 message: JSON.parse(err.response).error.message,
                 type: 'warning'
-                }));
+            }));
     }
 }
 </script>
