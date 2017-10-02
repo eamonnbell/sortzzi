@@ -13,7 +13,7 @@
     <div class="container">
     <template v-if="loggedIn">
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-      <PaginationControl></PaginationControl>
+      <PaginationControl v-bind:resultsCount="resultsCount"></PaginationControl>
 
       <div class="columns">
         <div class="column is-two-thirds">
@@ -69,8 +69,7 @@ export default {
     return {
       message: 'welcome',
       query: '',
-      searchTypes: ['album'],
-      resultsCount: 0,
+      searchTypes: ['album']
     }
   },
   computed: {
@@ -79,6 +78,9 @@ export default {
     },
     notifications() {
       return this.$store.state.notifications;
+    },
+    resultsCount() {
+      return this.$store.state.searchResultsCount;
     }
   },
   methods: {
@@ -94,7 +96,7 @@ export default {
       this.$store.dispatch('logOut');
     },
     updateResultsCount(message) {
-      this.resultsCount = Number(message);
+      console.log('deprecated');
     },
     updateSearchTypes(message) {
       this.searchTypes = message;

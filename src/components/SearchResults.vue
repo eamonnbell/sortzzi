@@ -2,12 +2,13 @@
     <div v-if="query !== ''">
         <div v-if="result.albums.items.length > 0" class="box">
             <h2 class="title">Albums</h2>
+            <h2 class="subtitle is-5">About {{ result.albums.total }} results</h2>
             <AlbumResult v-for="item in result.albums.items" v-bind:item="item" v-bind:key="item.id"></AlbumResult>
         </div>
 
         <div v-if="result.tracks.items.length > 0" class="box">
             <h2 class="title">Tracks</h2>
-            <h2 class="subtitle is-5">{{ resultsCount.tracks }}</h2>
+            <h2 class="subtitle is-5">{{ result.tracks.total }}</h2>
             <TrackResult v-for="item in result.tracks.items" v-bind:item="item" v-bind:key="item.id"></TrackResult>
         </div>
     </div>
@@ -51,7 +52,10 @@ export default {
                 this.result.albums.items = [];
                 this.result.tracks.items = [];
 
+
                 this.result = Object.assign(this.result, response);
+                this.$store.commit('UPDATE_SEARCH_RESULTS_COUNT', this.result.albums.total);
+
                 this.$emit('newResultsCount', this.resultsCount.total)
             }, err => this.$store.dispatch('notify', {
                 message: JSON.parse(err.response).error.message,

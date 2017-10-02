@@ -17,13 +17,16 @@
 <script>
 export default {
     name: 'paginationcontrol',
+    props: ['resultsCount'],
     data() {
         return {
-            pages: 10,
             selected: this.$store.state.searchResultsPage
         }
     },
     computed: {
+        pages() {
+            return Math.ceil(this.resultsCount / 10);
+        },
         atFirstPage() {
             return this.selected <= 1;
         },
