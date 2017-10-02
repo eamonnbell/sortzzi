@@ -13,7 +13,8 @@
     <div class="container">
     <template v-if="loggedIn">
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-      
+      <PaginationControl v-bind:resultsCount="resultsCount"></PaginationControl>
+
       <div class="columns">
         <div class="column is-two-thirds">
           <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
@@ -45,6 +46,7 @@ import Hero from './components/Hero.vue'
 import LoginButton from './components/LoginButton.vue'
 import MainFooter from './components/MainFooter.vue'
 import Notification from './components/Notification.vue'
+import PaginationControl from './components/PaginationControl.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
@@ -57,6 +59,7 @@ export default {
     LoginButton,
     MainFooter,
     Notification,
+    PaginationControl,
     SearchControl,
     SearchResults,
     SpotifyProfile,
@@ -66,8 +69,7 @@ export default {
     return {
       message: 'welcome',
       query: '',
-      searchTypes: ['album'],
-      resultsCount: 0,
+      searchTypes: ['album']
     }
   },
   computed: {
@@ -76,6 +78,9 @@ export default {
     },
     notifications() {
       return this.$store.state.notifications;
+    },
+    resultsCount() {
+      return this.$store.state.searchResultsCount;
     }
   },
   methods: {
@@ -91,7 +96,7 @@ export default {
       this.$store.dispatch('logOut');
     },
     updateResultsCount(message) {
-      this.resultsCount = Number(message);
+      console.log('deprecated');
     },
     updateSearchTypes(message) {
       this.searchTypes = message;

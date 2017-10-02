@@ -11,7 +11,9 @@ var store = new Vuex.Store({
   state: {
     loggedIn: false,
     trackCart: [],
-    notifications: []
+    notifications: [],
+    searchResultsPage: 1,
+    searchResultsCount: 0
   },
   mutations: {
     LOGGED_IN(state) {
@@ -37,6 +39,12 @@ var store = new Vuex.Store({
     CLEAR_TRACK_CART(state) {
       state.trackCart = [];
     },
+    UPDATE_SEARCH_RESULTS_PAGE(state, payload) {
+      state.searchResultsPage = payload;
+    },
+    UPDATE_SEARCH_RESULTS_COUNT(state, payload) {
+      state.searchResultsCount = payload;
+    }
   },
   // learned_that::actions recieve a context object exposing same methods on store instance
   actions: {
