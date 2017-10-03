@@ -13,7 +13,8 @@
     <div class="container">
     <template v-if="loggedIn">
       <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-      <PaginationControl v-bind:resultsCount="resultsCount"></PaginationControl>
+      
+      <PaginationControl v-if="resultsCount > 0" v-bind:resultsCount="resultsCount"></PaginationControl>
 
       <div class="columns">
         <div class="column is-two-thirds">
