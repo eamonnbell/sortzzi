@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div v-if="embiggenedQuery" class="level-item">
-                    <a @click="useEmbiggenedQuery">Widen query with wildcards...</a>
+                    <a @click="useEmbiggenedQuery">Click here to expand your search</a>
                 </div>
             </div>
             <!-- Right side -->

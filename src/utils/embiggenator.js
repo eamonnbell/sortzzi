@@ -1,5 +1,5 @@
 var staticMap = {
-    'tchaikovsky':'tchaiko*sky OR чайковский OR tchaïkovski'
+    'tchaikovsky':'tchaiko*sky OR чайковский OR tchaïkovski',
 }
 
 export function embiggen(queryString) {
