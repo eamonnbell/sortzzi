@@ -129,6 +129,6 @@ export default {
     width: 35vw;
     right: 0px;
     position: fixed !important;
-    z-index: 247365
+    z-index: 247365;
 }
 </style>
