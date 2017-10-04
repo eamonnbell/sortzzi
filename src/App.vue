@@ -22,6 +22,7 @@
         </div>
         <div class="column is-one-third">
           <div class="box">
+            <SpotifyPlayerControl></SpotifyPlayerControl>
             <SpotifyProfile v-on:logOutRequest="handleLogOut">
               <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
             </SpotifyProfile>
@@ -50,6 +51,7 @@ import Notification from './components/Notification.vue'
 import PaginationControl from './components/PaginationControl.vue'
 import SearchControl from './components/SearchControl.vue'
 import SearchResults from './components/SearchResults.vue'
+import SpotifyPlayerControl from './components/SpotifyPlayerControl.vue'
 import SpotifyProfile from './components/SpotifyProfile.vue'
 import TrackCart from './components/TrackCart.vue'
 
@@ -63,6 +65,7 @@ export default {
     PaginationControl,
     SearchControl,
     SearchResults,
+    SpotifyPlayerControl,
     SpotifyProfile,
     TrackCart
   },
