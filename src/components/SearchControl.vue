@@ -7,7 +7,7 @@
                 <div class="level-item">
                     <div class="field has-addons">
                         <p class="control">
-                            <input class="input" type="text" ref="query" placeholder="Find music" v-bind:value="query" v-on:keyup.enter="updateQuery($event.target.value)">
+                            <input class="input" style="width:25vw;" type="text" ref="query" placeholder="Find music" v-model="query" v-on:keyup.enter="updateQuery($event.target.value)">
                         </p>
                         <p class="control">
                             <button class="button" v-on:click="updateQuery($refs.query.value)">
@@ -15,6 +15,9 @@
                             </button>
                         </p>
                     </div>
+                </div>
+                <div v-if="embiggenedQuery" class="level-item">
+                    <a @click="useEmbiggenedQuery">Widen query with wildcards...</a>
                 </div>
             </div>
             <!-- Right side -->
@@ -39,15 +42,30 @@
 </template>
 
 <script>
+import { embiggen } from '../utils/embiggenator'
+
 export default {
     name: 'searchcontrol',
-    props: ['query', 'resultsCount'],
+    props: ['resultsCount'],
     data() {
         return {
-            searchTypes: 0
+            searchTypes: 0,
+            query: '',
+            queryIsEmbiggened: false
         }
     },
+    computed: {
+        embiggenedQuery() {
+            if (this.query && !this.queryIsEmbiggened) {
+                return embiggen(this.query);
+            }
+        } 
+    },
     methods: {
+        useEmbiggenedQuery(){
+            this.queryEmbiggened = true;
+            this.query = this.embiggenedQuery;
+        },
         updateQuery(query) {
             this.$emit('input', query);
         }
