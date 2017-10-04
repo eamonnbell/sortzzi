@@ -1,6 +1,7 @@
 <template>
     <div class="box">
         <h2 class="title">Player</h2>
+        <template v-if="devices.length > 0">
         <div class="content">
             <strong>{{ myCurrentPlayingInfo.item.album.name }}</strong><br>          
             {{ myCurrentPlayingInfo.item.name }}
@@ -15,20 +16,12 @@
             <a class="button" @click="skipToNext">⏭</a>
         </div>
         <progress class="progress" v-bind:value="myCurrentPlayingInfo.progress_ms" v-bind:max="myCurrentPlayingInfo.item.duration_ms"></progress>
-        <div class="field">
-            <label class="label">Device to control</label>
-            <div class="control">
-                <div class="select">
-                    <select v-model="selectedDeviceId">
-                        <option v-for="(device, index) in devices"
-                                v-bind:value="device.id"
-                                v-bind:key="device.id">
-                        {{ device.name }} ({{ device.type}})
-                        </option>
-                    </select>
-                </div>
+        </template>
+        <template v-else>
+            <div class="content">
+                The Player requires at least one open instance of Spotify. Right click to open <a href="https://open.spotify.com/">Spotify Web</a> in a new tab and refresh this page.
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -39,14 +32,12 @@ export default {
     data() {
         return {
             devices: [],
-            selectedDeviceId: '',
             myCurrentPlayingInfo: {}
         }
     },
     computed: {
         apiOptions() {
             return {
-                'device_id': this.selectedDeviceId
             }
         }
     },
@@ -81,10 +72,10 @@ export default {
     },
     created() {
         this.getMyCurrentPlayingInfo();
-        setInterval(this.getMyCurrentPlayingInfo, 2500);
         this.$spotify.getMyDevices()
             .then((r) => this.devices = r.devices)
             .catch((err) => console.error(err));
+        setInterval(this.getMyCurrentPlayingInfo, 2500);
     },
     watch: {
         contextURI(){
