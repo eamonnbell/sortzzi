@@ -12,7 +12,8 @@
                     <a @click="collapsed = !collapsed">
                         <span v-if="collapsed">Show TrackTree</span>
                         <span v-else>Hide TrackTree</span>
-                    </a>
+                    </a> -
+                    <a @click="replaceCurrentPlayerContext">Preview album in Player</a>
                     <br>
                     <div class="tags">
                         <span class="tag" v-for="artistName in artistNames">{{ artistName }}</span>
@@ -35,6 +36,11 @@ export default {
     data() {
         return {
             collapsed: true
+        }
+    },
+    methods: {
+        replaceCurrentPlayerContext() {
+            this.$store.commit('UPDATE_CURRENT_PLAYER_CONTEXT', this.item.uri);
         }
     },
     components: {

@@ -22,7 +22,7 @@
         </div>
         <div class="column is-one-third">
           <div class="box">
-            <SpotifyPlayerControl></SpotifyPlayerControl>
+            <SpotifyPlayerControl v-bind:contextURI="currentPlayerContext"></SpotifyPlayerControl>
             <SpotifyProfile v-on:logOutRequest="handleLogOut">
               <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
             </SpotifyProfile>
@@ -85,6 +85,9 @@ export default {
     },
     resultsCount() {
       return this.$store.state.searchResultsCount;
+    },
+    currentPlayerContext(){
+      return this.$store.state.currentPlayerContext;
     }
   },
   methods: {

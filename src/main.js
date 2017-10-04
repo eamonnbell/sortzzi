@@ -13,7 +13,8 @@ var store = new Vuex.Store({
     trackCart: [],
     notifications: [],
     searchResultsPage: 1,
-    searchResultsCount: 0
+    searchResultsCount: 0,
+    currentPlayerContext: '',
   },
   mutations: {
     LOGGED_IN(state) {
@@ -44,6 +45,9 @@ var store = new Vuex.Store({
     },
     UPDATE_SEARCH_RESULTS_COUNT(state, payload) {
       state.searchResultsCount = payload;
+    },
+    UPDATE_CURRENT_PLAYER_CONTEXT(state, payload){
+      state.currentPlayerContext = payload;
     }
   },
   // learned_that::actions recieve a context object exposing same methods on store instance

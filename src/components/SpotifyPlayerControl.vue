@@ -20,7 +20,11 @@
             <div class="control">
                 <div class="select">
                     <select v-model="selectedDeviceId">
-                        <option v-for="device in devices" v-bind:value="device.id" v-bind:key="device.id">{{ device.name }} ({{ device.type}})</option>
+                        <option v-for="(device, index) in devices"
+                                v-bind:value="device.id"
+                                v-bind:key="device.id">
+                        {{ device.name }} ({{ device.type}})
+                        </option>
                     </select>
                 </div>
             </div>
@@ -31,7 +35,7 @@
 <script>
 export default {
     name: 'spotify-player-control',
-    props: ['context-uri'],
+    props: ['contextURI'],
     data() {
         return {
             devices: [],
@@ -53,7 +57,9 @@ export default {
                 .catch((err) => console.error(err));
         },
         play() {
-            this.$spotify.play(this.apiOptions)
+            this.$spotify.play(Object.assign(this.apiOptions, {
+                context_uri: this.contextURI
+            }))
                 .then((r) => console.log(r))
                 .catch((err) => console.error(err));
         },
@@ -79,7 +85,11 @@ export default {
         this.$spotify.getMyDevices()
             .then((r) => this.devices = r.devices)
             .catch((err) => console.error(err));
-        
+    },
+    watch: {
+        contextURI(){
+            this.play();
+        }
     }
 }
 </script>
