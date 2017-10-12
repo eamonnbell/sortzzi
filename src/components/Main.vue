@@ -2,43 +2,39 @@
   <div id="app">
     <div>
 
-   <div class="notifications">
-      <Notification v-for="notification in notifications" v-bind:notification="notification"></Notification>
-    </div>
-
-    <Hero>
-      <LoginButton class="is-light" v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
-    </Hero>
-
-    <div class="container">
-    <template v-if="loggedIn">
-      <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
-      
-      <PaginationControl v-if="resultsCount > 0" v-bind:resultsCount="resultsCount"></PaginationControl>
-
-      <div class="columns">
-        <div class="column is-two-thirds">
-          <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
-        </div>
-        <div class="column is-one-third">
-          <div class="box">
-            <SpotifyPlayerControl v-bind:contextURI="currentPlayerContext"></SpotifyPlayerControl>
-            <SpotifyProfile v-on:logOutRequest="handleLogOut">
-              <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
-            </SpotifyProfile>
-            <TrackCart></TrackCart>
-          </div>
-
-        </div>
+      <div class="notifications">
+        <Notification v-for="notification in notifications" v-bind:notification="notification"></Notification>
       </div>
 
-    </template>
+      <Hero>
+        <LoginButton class="is-light" v-if="!loggedIn" v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
+      </Hero>
+
+      <div class="container">
+        <template v-if="loggedIn">
+          <div class="box">
+          <div class="columns">
+            <div class="column is-two-thirds">
+              <SearchControl v-bind:resultsCount="resultsCount" v-model="query" v-on:searchTypesChanged="updateSearchTypes"></SearchControl>
+              <PaginationControl v-if="resultsCount > 0" v-bind:resultsCount="resultsCount"></PaginationControl>
+              <SearchResults v-on:newResultsCount="updateResultsCount" v-bind:query="query" v-bind:searchTypes="searchTypes"></SearchResults>
+            </div>
+            <div class="column is-one-third">
+                <SpotifyPlayerControl v-bind:contextURI="currentPlayerContext"></SpotifyPlayerControl>
+                <SpotifyProfile v-on:logOutRequest="handleLogOut">
+                  <LoginButton v-on:accessTokenReceived="handleAccessToken" v-on:logOutRequest="handleLogOut"></LoginButton>
+                </SpotifyProfile>
+                <TrackCart></TrackCart>
+            </div>
+          </div>
+          </div>
+
+        </template>
+      </div>
+
+      <MainFooter></MainFooter>
     </div>
-    
-    <MainFooter></MainFooter>
   </div>
-    </div>
-  
 </template>
 
 <script>
@@ -85,7 +81,7 @@ export default {
     resultsCount() {
       return this.$store.state.searchResultsCount;
     },
-    currentPlayerContext(){
+    currentPlayerContext() {
       return this.$store.state.currentPlayerContext;
     }
   },
@@ -96,7 +92,7 @@ export default {
           this.$spotify.setAccessToken(accessToken);
           this.$store.commit('LOGGED_IN');
         })
-        .catch((err) => this.$store.dispatch('notify', {message: err.message, type: 'warning'}));
+        .catch((err) => this.$store.dispatch('notify', { message: err.message, type: 'warning' }));
     },
     handleLogOut() {
       this.$store.dispatch('logOut');
@@ -120,7 +116,7 @@ export default {
         }
       })
       .catch((err) => {
-        this.$store.dispatch('notify', {message: err.message, type: 'warning'});
+        this.$store.dispatch('notify', { message: err.message, type: 'warning' });
         this.$store.commit('LOGGED_OUT');
       });
   }
@@ -131,9 +127,9 @@ export default {
 @import "~bulma/css/bulma.css";
 @import "../jstree/themes/proton/style.css";
 .notifications {
-    width: 35vw;
-    right: 0px;
-    position: fixed !important;
-    z-index: 247365;
+  width: 35vw;
+  right: 0px;
+  position: fixed !important;
+  z-index: 247365;
 }
 </style>
