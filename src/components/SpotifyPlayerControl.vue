@@ -2,24 +2,24 @@
     <div class="box">
         <h2 class="title">Player</h2>
         <template v-if="devices.length > 0">
-        <div class="content">
-            <strong>{{ myCurrentPlayingInfo.item.album.name }}</strong><br>          
-            {{ myCurrentPlayingInfo.item.name }}
-            <div class="tags">
-                <span class="tag" v-for="artist in myCurrentPlayingInfo.item.artists" v-bind:key="artist.id">{{ artist.name }}</span>
+            <div class="content">
+                <strong>{{ myCurrentPlayingInfo.item.album.name }}</strong><br> {{ myCurrentPlayingInfo.item.name }}
+                <div class="tags">
+                    <span class="tag" v-for="artist in myCurrentPlayingInfo.item.artists" v-bind:key="artist.id">{{ artist.name }}</span>
+                </div>
             </div>
-        </div>
-        <div class="level">
-            <a class="button" @click="skipToPrevious">⏮</a>
-            <a class="button" @click="play">▶️</a>
-            <a class="button" @click="pause">⏸</a>
-            <a class="button" @click="skipToNext">⏭</a>
-        </div>
-        <progress class="progress" v-bind:value="myCurrentPlayingInfo.progress_ms" v-bind:max="myCurrentPlayingInfo.item.duration_ms"></progress>
+            <div class="level">
+                <a class="button" @click="skipToPrevious">⏮</a>
+                <a class="button" @click="play">▶️</a>
+                <a class="button" @click="pause">⏸</a>
+                <a class="button" @click="skipToNext">⏭</a>
+            </div>
+            <progress class="progress" v-bind:value="myCurrentPlayingInfo.progress_ms" v-bind:max="myCurrentPlayingInfo.item.duration_ms"></progress>
         </template>
         <template v-else>
             <div class="content">
-                The Player requires at least one open instance of Spotify. Right click to open <a href="https://open.spotify.com/">Spotify Web</a> in a new tab and refresh this page.
+                The Player requires at least one open instance of Spotify. Right click to open
+                <a href="https://open.spotify.com/">Spotify Web</a> in a new tab and refresh this page.
             </div>
         </template>
     </div>
@@ -37,8 +37,16 @@ export default {
     },
     computed: {
         apiOptions() {
-            return {
+            var options = {};
+            if (this.contextURI) {
+                options = {
+                    context_uri: this.contextURI
+                }
+            } else {
+                options = {}
             }
+
+            return options
         }
     },
     methods: {
@@ -48,9 +56,7 @@ export default {
                 .catch((err) => console.error(err));
         },
         play() {
-            this.$spotify.play(Object.assign(this.apiOptions, {
-                context_uri: this.contextURI
-            }))
+            this.$spotify.play(this.apiOptions)
                 .then((r) => console.log(r))
                 .catch((err) => console.error(err));
         },
@@ -66,7 +72,9 @@ export default {
         },
         getMyCurrentPlayingInfo() {
             this.$spotify.getMyCurrentPlayingTrack(this.apiOptions)
-                .then((r) => this.myCurrentPlayingInfo = r)
+                .then((r) => {
+                    this.myCurrentPlayingInfo = r;
+                })
                 .catch((err) => console.error(err));
         }
     },
@@ -78,7 +86,7 @@ export default {
         setInterval(this.getMyCurrentPlayingInfo, 2500);
     },
     watch: {
-        contextURI(){
+        contextURI() {
             this.play();
         }
     }
