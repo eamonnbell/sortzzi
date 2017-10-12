@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import localforage from 'localforage';
+import nanoid from 'nanoid';
 
 Vue.use(Vuex);
 
@@ -61,7 +62,6 @@ const store = new Vuex.Store({
     },
     notify(context, payload) {
       var notification = Object.assign({ id: nanoid() }, payload);
-      console.log(notification);
       context.commit('ADD_TO_NOTIFICATIONS', notification);
     }
   }
