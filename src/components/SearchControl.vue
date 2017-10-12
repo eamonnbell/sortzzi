@@ -33,9 +33,6 @@
                             </div>
                         </div>
                 </div>
-                <div class="level-item">
-                    <a class="button is-success" v-on:click="updateQuery('')">Clear</a>
-                </div>
             </div>
         </nav>
     </div>

@@ -87,6 +87,7 @@ export default {
             if (this.query === '') {
                 this.items = [];
                 this.$emit('newResultsCount', this.items.length)
+                this.$store.commit('UPDATE_SEARCH_RESULTS_COUNT', this.items.length);
             } else {
                 this.executeQuery();
             }
