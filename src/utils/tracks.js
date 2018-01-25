@@ -4,6 +4,8 @@ function pseudoUUID() {
     return nanoid(8);
 }
 
+// https://gist.github.com/tpae/72e1c54471e88b689f85ad2b3940a8f0
+
 // we start with the TrieNode
 function TrieNode(key) {
     // the "key" value will be the character in sequence
